@@ -88,7 +88,7 @@ class IpHelper
             if (@inet_pton('::1') === false) {
                 throw new \RuntimeException('IPv6 is not supported by inet_pton()!');
             }
-            throw new \RuntimeException('Invalid or not supported IP format by inet_pton()!');
+            throw new \InvalidArgumentException('Invalid or not supported IP format by inet_pton()!');
         }
         $hex = unpack('H*hex', $ipRaw);
         return substr(preg_replace('/([a-f0-9]{4})/i', '$1:', $hex['hex']), 0, -1);

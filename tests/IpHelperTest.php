@@ -47,7 +47,7 @@ class IpHelperTest extends TestCase
 
     public function testIpv6ExpandingWithInvalidValue(): void
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(\InvalidArgumentException::class);
         IpHelper::expandIPv6('fa01::1/64');
     }
 
