@@ -83,7 +83,14 @@ class IpHelper
      */
     public static function expandIPv6(string $ip): string
     {
-        $hex = unpack('H*hex', inet_pton($ip));
+        $ipRaw = @inet_pton($ip);
+        if ($ipRaw === false) {
+            if (@inet_pton('::1') === false) {
+                throw new \RuntimeException('IPv6 is not supported by inet_pton()!');
+            }
+            throw new \InvalidArgumentException("Unrecognized address $ip");
+        }
+        $hex = unpack('H*hex', $ipRaw);
         return substr(preg_replace('/([a-f0-9]{4})/i', '$1:', $hex['hex']), 0, -1);
     }
 
