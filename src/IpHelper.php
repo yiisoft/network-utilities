@@ -106,7 +106,7 @@ class IpHelper
         if (static::getIpVersion($ip) === self::IPV4) {
             $ipBinary = pack('N', ip2long($ip));
         } elseif (@inet_pton('::1') === false) {
-            throw new \InvalidArgumentException('IPv6 is not supported by inet_pton()!');
+            throw new \RuntimeException('IPv6 is not supported by inet_pton()!');
         } else {
             $ipBinary = inet_pton($ip);
         }
