@@ -126,7 +126,7 @@ class IpHelper
     public static function getCidrBits(string $ip): int
     {
         if (preg_match('/^(?<ip>.{2,}?)(?:\/(?<bits>-?\d+))?$/', $ip, $matches) === 0) {
-            throw new \InvalidArgumentException("Unrecognized address $ip!", 1);
+            throw new \InvalidArgumentException("Unrecognized address $ip", 1);
         }
         $ipVersion = static::getIpVersion($matches['ip']);
         $maxBits = $ipVersion === self::IPV6 ? self::IPV6_ADDRESS_LENGTH : self::IPV4_ADDRESS_LENGTH;
@@ -136,10 +136,10 @@ class IpHelper
         }
         $bits = (int)$bits;
         if ($bits < 0) {
-            throw new \InvalidArgumentException('The number of CIDR bits cannot be negative!', 2);
+            throw new \InvalidArgumentException('The number of CIDR bits cannot be negative', 2);
         }
         if ($bits > $maxBits) {
-            throw new \InvalidArgumentException("CIDR bits is greater than $bits!", 3);
+            throw new \InvalidArgumentException("CIDR bits is greater than $bits", 3);
         }
         return $bits;
     }
