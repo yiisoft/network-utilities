@@ -3,6 +3,7 @@
 namespace Yiisoft\NetworkUtilities\Tests;
 
 
+use InvalidArgumentException;
 use Yiisoft\NetworkUtilities\IpHelper;
 use PHPUnit\Framework\TestCase;
 
@@ -94,5 +95,41 @@ class IpHelperTest extends TestCase
             ['fa01::1/64', 'fa01::1/128', false],
             ['2620:0:0:0:0:0:0:0', '2620:0:2d0:200::7/32', true],
         ];
+    }
+
+    public function getCidrBitsDataProvider(): array
+    {
+        return [
+            'invalidEmpty' => ['', null, \InvalidArgumentException::class],
+            'invalidTooShort' => ['1', null, \InvalidArgumentException::class],
+            'invalidIp' => ['999.999.999.999', null, \InvalidArgumentException::class],
+            'invalidIpCidr' => ['999.999.999.999/22', null, \InvalidArgumentException::class],
+            'shortestIp' => ['::', 128],
+            'ipv4' => ['127.0.0.1', 32],
+            'ipv6' => ['::1', 128],
+            'ipv4-negative' => ['127.0.0.1/-1', null, \InvalidArgumentException::class],
+            'ipv4-min' => ['127.0.0.1/0', 0],
+            'ipv4-normal' => ['127.0.0.1/13', 13],
+            'ipv4-max' => ['127.0.0.1/32', 32],
+            'ipv4-overflow' => ['127.0.0.1/33', null, \InvalidArgumentException::class],
+            'ipv6-negative' => ['::1/-1', null, \InvalidArgumentException::class],
+            'ipv6-min' => ['::1/0', 0],
+            'ipv6-normal' => ['::1/72', 72],
+            'ipv6-normalExpanded' => ['2001:0db8:85a3:0000:0000:8a2e:0370:7334/23', 23],
+            'ipv6-normalIpv4Mapped' => ['::ffff:192.0.2.128/109', 109],
+            'ipv6-max' => ['::1/128', 128],
+            'ipv6-overflow' => ['::1/129', null, \InvalidArgumentException::class],
+        ];
+    }
+
+    /**
+     * @dataProvider getCidrBitsDataProvider
+     */
+    public function testGetCidrBits(string $ip, ?int $expectedCidr, ?string $expectedException = null): void
+    {
+        if ($expectedException !== null) {
+            $this->expectException($expectedException);
+        }
+        $this->assertSame($expectedCidr, IpHelper::getCidrBits($ip));
     }
 }
