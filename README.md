@@ -40,4 +40,7 @@ echo IpHelper::expandIPv6('2001:db8::1');
 
 // converting IP to bits representation
 echo IpHelper::ip2bin('192.168.1.1');
+
+// gets bits from CIDR Notation
+echo IpHelper::getCidrBits('192.168.1.21/32');
 ```
