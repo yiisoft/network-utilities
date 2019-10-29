@@ -11,20 +11,41 @@ class IpHelperTest extends TestCase
     /**
      * @dataProvider getIpVersionProvider
      */
-    public function testGetIpVersion(string $value, int $expected, string $message = ''): void
+    public function testGetIpVersion(string $value, bool $validation, ?int $expectedVersion, ?string $expectedException = null, string $message = ''): void
     {
-        $version = IpHelper::getIpVersion($value);
-        $this->assertSame($expected, $version, $message);
+        if ($expectedException !== null) {
+            $this->expectException($expectedException);
+        }
+        $version = IpHelper::getIpVersion($value, $validation);
+        if ($expectedException === null) {
+            $this->assertSame($expectedVersion, $version, $message);
+        }
     }
 
     public function getIpVersionProvider(): array
     {
         return [
-            ['192.168.0.1', IpHelper::IPV4],
-            ['192.168.0.1/24', IpHelper::IPV4, 'IPv4 with CIDR is resolved correctly'],
-            ['fb01::1', IpHelper::IPV6],
-            ['fb01::1/24', IpHelper::IPV6, 'IPv6 with CIDR is resolved correctly'],
-            ['', IpHelper::IPV4, 'Empty string is treated as IPv4'],
+            'emptyString' => ['', false, null, \InvalidArgumentException::class],
+            'emptyStringValidate' => ['', true, null, \InvalidArgumentException::class],
+            'tooShort' => ['1', false, null, \InvalidArgumentException::class],
+            'tooShortValidate' => ['1', true, null, \InvalidArgumentException::class],
+            'ipv4Minimal' => ['0.0.0.0', false, IpHelper::IPV4],
+            'ipv4TooShort' => ['0.0.0.', false, null, \InvalidArgumentException::class],
+            'ipv4' => ['192.168.0.1', false, IpHelper::IPV4],
+            'ipv4Max' => ['255.255.255.255', false, IpHelper::IPV4],
+            'ipv4MaxValidation' => ['255.255.255.255', true, IpHelper::IPV4],
+            'ipv4OverMax' => ['255.255.255.256', true, null, \InvalidArgumentException::class],
+            'ipv4Cidr' => ['192.168.0.1/24', false, IpHelper::IPV4, null, 'IPv4 with CIDR is resolved correctly'],
+            'ipv4CidrValidation' => ['192.168.0.1/24', true, null, \InvalidArgumentException::class],
+            'ipv6' => ['fb01::1', false, IpHelper::IPV6],
+            'ipv6Cidr' => ['fb01::1/24', false, IpHelper::IPV6, null, 'IPv6 with CIDR is resolved correctly'],
+            'ipv6CidrValidation' => ['fb01::1/24', true, null, \InvalidArgumentException::class],
+            'ipv6Minimal' => ['::', false, IpHelper::IPV6],
+            'ipv6MinimalValidation' => ['::', true, IpHelper::IPV6],
+            'ipv6MappedIpv4' => ['::ffff:192.168.0.2', false, IpHelper::IPV6],
+            'ipv6MappedIpv4Validation' => ['::ffff:192.168.0.2', true, IpHelper::IPV6],
+            'ipv6Full' => ['fa01:0000:0000:0000:0000:0000:0000:0001', false, IpHelper::IPV6],
+            'ipv6FullValidation' => ['fa01:0000:0000:0000:0000:0000:0000:0001', true, IpHelper::IPV6],
         ];
     }
 
@@ -64,7 +85,6 @@ class IpHelperTest extends TestCase
     {
         return [
             ['192.168.1.1', '11000000101010000000000100000001'],
-            ['', '00000000000000000000000000000000'],
             ['fa01:0000:0000:0000:0000:0000:0000:0001', '11111010000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001'],
             ['fa01::1', '11111010000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001'],
             ['2620:0:2d0:200::7', '00100110001000000000000000000000000000101101000000000010000000000000000000000000000000000000000000000000000000000000000000000111'],
