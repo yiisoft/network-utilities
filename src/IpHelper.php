@@ -18,14 +18,33 @@ class IpHelper
 
 
     /**
-     * Gets the IP version. Does not perform IP address validation.
+     * Gets the IP version.
      *
      * @param string $ip the valid IPv4 or IPv6 address.
-     * @return int [[IPV4]] or [[IPV6]]
+     * @param bool   $validate enable perform IP address validation. False is best practice if the data comes from a trusted source.
+     * @return int {{IPV4}} or {{IPV6}}
      */
-    public static function getIpVersion(string $ip): int
+    public static function getIpVersion(string $ip, bool $validate = true): int
     {
-        return strpos($ip, ':') === false ? self::IPV4 : self::IPV6;
+        $ipStringLength = strlen($ip);
+        if ($ipStringLength < 2) {
+            throw new \InvalidArgumentException("Unrecognized address $ip", 10);
+        }
+        $preIpVersion = strpos($ip, ':') === false ? self::IPV4 : self::IPV6;
+        if ($preIpVersion === self::IPV4 && $ipStringLength < 7) {
+            throw new \InvalidArgumentException("Unrecognized address $ip", 11);
+        }
+        if (!$validate) {
+            return $preIpVersion;
+        }
+        $rawIp = @inet_pton($ip);
+        if ($rawIp === false) {
+            if (@inet_pton('::1') === false) {
+                throw new \RuntimeException('IPv6 is not supported by inet_pton()!');
+            }
+            throw new \InvalidArgumentException("Unrecognized address $ip", 12);
+        }
+        return strlen($rawIp) === self::IPV4_ADDRESS_LENGTH >> 3 ? self::IPV4 : self::IPV6;
     }
 
     /**
