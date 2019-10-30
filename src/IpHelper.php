@@ -59,7 +59,7 @@ class IpHelper
         if ($rawIp !== false) {
             return strlen($rawIp) === self::IPV4_ADDRESS_LENGTH >> 3 ? self::IPV4 : self::IPV6;
         }
-        if (preg_match(self::IPV6_REGEXP, $ip) === 1) {
+        if ($preIpVersion === self::IPV6 && preg_match(self::IPV6_REGEXP, $ip) === 1) {
             return self::IPV6;
         }
         throw new \InvalidArgumentException("Unrecognized address $ip", 12);
