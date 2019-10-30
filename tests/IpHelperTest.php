@@ -152,4 +152,56 @@ class IpHelperTest extends TestCase
         }
         $this->assertSame($expectedCidr, IpHelper::getCidrBits($ip));
     }
+
+    public function ipv4RegexpDataProvider(): array
+    {
+        return [
+            'min' => ['0.0.0.0', 1],
+            'max' => ['255.255.255.255', 1],
+            'overflow' => ['255.255.255.256', 0],
+            'overflow2' => ['256.0.0.0', 0],
+            'random' => ['31.88.247.9', 1],
+            'broken' => ['1.', 0],
+            'broken2' => ['1.1', 0],
+            'broken3' => ['1.1.', 0],
+            'broken4' => ['1.1.1.', 0],
+            'empty' => ['', 0],
+            'invalid' => ['apple', 0],
+            'trailingLeadingSpace' => [' 0.0.0.0 ', 0],
+        ];
+    }
+
+    /**
+     * @dataProvider ipv4RegexpDataProvider
+     */
+    public function testIpv4Regexp(string $ip, int $result): void
+    {
+        $this->assertSame($result, preg_match(IpHelper::IPV4_REGEXP, $ip));
+    }
+
+    public function ipv6RegexpDataProvider(): array
+    {
+        return [
+            'shortest' => ['::', 1],
+            'full' => ['ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff', 1],
+            'overflow' => ['ffff:ffff:ffff:ffff:ffff:ffff:ffff:fffg', 0],
+            'overflow2' => ['fffg:ffff:ffff:ffff:ffff:ffff:ffff:ffff', 0],
+            'empty' => ['', 0],
+            'invalid' => ['apple', 0],
+            'trailingLeadingSpace' => [' :: ', 0],
+            'mappedIpv4' => ['::ffff:192.168.0.2', 1],
+            'random' => ['2001:db8:a::123', 1],
+            'random2' => ['2001:db8:85a3::8a2e:370:7334', 1],
+            'allHexCharacters' => ['0123:4567:89ab:cdef:CDEF:AB12:1:1', 1],
+            'variableGroupLength' => ['1:12:123:1234::', 1]
+        ];
+    }
+
+    /**
+     * @dataProvider ipv6RegexpDataProvider
+     */
+    public function testIpv6Regexp(string $ip, int $result): void
+    {
+        $this->assertSame($result, preg_match(IpHelper::IPV6_REGEXP, $ip));
+    }
 }

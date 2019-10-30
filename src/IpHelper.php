@@ -8,6 +8,24 @@ class IpHelper
     public const IPV6 = 6;
 
     /**
+     * IPv4 address pattern. This pattern is PHP and JavaScript compatible.
+     * Allows to define your own IP regexp eg. `'/^'.IpHelper::IPV4_PATTERN.'/(\d+)$/'`
+     */
+    public const IPV4_PATTERN = '((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])';
+    /**
+     * IPv6 address regexp. This regexp is PHP and Javascript compatible.
+     */
+    public const IPV4_REGEXP = '/^' . self::IPV4_PATTERN . '$/';
+    /**
+     * IPv6 address pattern. This pattern is PHP and Javascript compatible.
+     * Allows to define your own IP regexp eg. `'/^'.IpHelper::IPV6_PATTERN.'/(\d+)$/'`
+     */
+    public const IPV6_PATTERN = '(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:' . self::IPV4_PATTERN. ')';
+    /**
+     * IPv6 address regexp. This regexp is PHP and JavaScript compatible.
+     */
+    public const IPV6_REGEXP = '/^' . self::IPV6_PATTERN . '$/';
+    /**
      * The length of IPv6 address in bits
      */
     public const IPV6_ADDRESS_LENGTH = 128;
@@ -38,13 +56,13 @@ class IpHelper
             return $preIpVersion;
         }
         $rawIp = @inet_pton($ip);
-        if ($rawIp === false) {
-            if (@inet_pton('::1') === false) {
-                throw new \RuntimeException('IPv6 is not supported by inet_pton()!');
-            }
-            throw new \InvalidArgumentException("Unrecognized address $ip", 12);
+        if ($rawIp !== false) {
+            return strlen($rawIp) === self::IPV4_ADDRESS_LENGTH >> 3 ? self::IPV4 : self::IPV6;
         }
-        return strlen($rawIp) === self::IPV4_ADDRESS_LENGTH >> 3 ? self::IPV4 : self::IPV6;
+        if ($preIpVersion === self::IPV6 && preg_match(self::IPV6_REGEXP, $ip) === 1) {
+            return self::IPV6;
+        }
+        throw new \InvalidArgumentException("Unrecognized address $ip", 12);
     }
 
     /**
