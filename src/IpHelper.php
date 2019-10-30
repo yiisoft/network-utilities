@@ -10,11 +10,11 @@ class IpHelper
     /**
      * The length of IPv6 address in bits
      */
-    private const IPV6_ADDRESS_LENGTH = 128;
+    public const IPV6_ADDRESS_LENGTH = 128;
     /**
      * The length of IPv4 address in bits
      */
-    private const IPV4_ADDRESS_LENGTH = 32;
+    public const IPV4_ADDRESS_LENGTH = 32;
 
 
     /**
