@@ -3,9 +3,8 @@
 namespace Yiisoft\NetworkUtilities\Tests;
 
 
-use InvalidArgumentException;
-use Yiisoft\NetworkUtilities\IpHelper;
 use PHPUnit\Framework\TestCase;
+use Yiisoft\NetworkUtilities\IpHelper;
 
 class IpHelperTest extends TestCase
 {

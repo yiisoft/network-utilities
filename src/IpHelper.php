@@ -20,7 +20,7 @@ class IpHelper
      * IPv6 address pattern. This pattern is PHP and Javascript compatible.
      * Allows to define your own IP regexp eg. `'/^'.IpHelper::IPV6_PATTERN.'/(\d+)$/'`
      */
-    public const IPV6_PATTERN = '(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:' . self::IPV4_PATTERN. ')';
+    public const IPV6_PATTERN = '(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:' . self::IPV4_PATTERN . ')';
     /**
      * IPv6 address regexp. This regexp is PHP and JavaScript compatible.
      */
@@ -39,7 +39,7 @@ class IpHelper
      * Gets the IP version.
      *
      * @param string $ip the valid IPv4 or IPv6 address.
-     * @param bool   $validate enable perform IP address validation. False is best practice if the data comes from a trusted source.
+     * @param bool $validate enable perform IP address validation. False is best practice if the data comes from a trusted source.
      * @return int {{IPV4}} or {{IPV6}}
      */
     public static function getIpVersion(string $ip, bool $validate = true): int
@@ -93,6 +93,9 @@ class IpHelper
         [$ip, $mask] = array_pad(explode('/', $subnet), 2, null);
         [$net, $netMask] = array_pad(explode('/', $range), 2, null);
 
+        assert(is_string($ip));
+        assert(is_string($net));
+
         $ipVersion = static::getIpVersion($ip);
         $netVersion = static::getIpVersion($net);
         if ($ipVersion !== $netVersion) {
@@ -105,7 +108,7 @@ class IpHelper
 
         $binIp = static::ip2bin($ip);
         $binNet = static::ip2bin($net);
-        $masked = substr($binNet, 0, $netMask);
+        $masked = substr($binNet, 0, (int)$netMask);
 
         return ($masked === '' || strpos($binIp, $masked) === 0) && $mask >= $netMask;
     }
@@ -139,7 +142,6 @@ class IpHelper
      */
     public static function ip2bin(string $ip): string
     {
-        $ipBinary = null;
         if (static::getIpVersion($ip) === self::IPV4) {
             $ipBinary = pack('N', ip2long($ip));
         } elseif (@inet_pton('::1') === false) {
@@ -148,9 +150,15 @@ class IpHelper
             $ipBinary = inet_pton($ip);
         }
 
+        assert(is_string($ipBinary));
+
         $result = '';
         for ($i = 0, $iMax = strlen($ipBinary); $i < $iMax; $i += 4) {
-            $result .= str_pad(decbin(unpack('N', substr($ipBinary, $i, 4))[1]), 32, '0', STR_PAD_LEFT);
+            $data = substr($ipBinary, $i, 4);
+            if (!is_string($data)) {
+                throw new \RuntimeException('An error occurred while converting IP address to bits representation.');
+            }
+            $result .= str_pad(decbin(unpack('N', $data)[1]), 32, '0', STR_PAD_LEFT);
         }
         return $result;
     }
@@ -159,6 +167,7 @@ class IpHelper
      * Gets the bits from CIDR Notation.
      *
      * @param string $ip IP or IP with CIDR Notation (`127.0.0.1`, `2001:db8:a::123/64`)
+     * @return int
      */
     public static function getCidrBits(string $ip): int
     {
