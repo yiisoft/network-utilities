@@ -10,7 +10,7 @@ class DnsHelper
      */
     public static function checkMx(string $hostname): bool
     {
-        $hostname .= '.';
+        $hostname = rtrim($hostname, '.') . '.';
         try {
             if (!@dns_check_record($hostname, 'MX')) {
                 return false;
