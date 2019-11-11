@@ -15,21 +15,21 @@ class DnsHelperTest extends TestCase
 
     public function testMx(): void
     {
-        $this->assertTrue(DnsHelper::checkMx('google.com'));
-        $this->assertFalse(DnsHelper::checkMx(self::NOT_EXISTS_DOMAIN));
+        $this->assertTrue(DnsHelper::existsMx('google.com'));
+        $this->assertFalse(DnsHelper::existsMx(self::NOT_EXISTS_DOMAIN));
     }
 
     public function testA(): void
     {
-        $this->assertTrue(DnsHelper::checkA('google.com'));
-        $this->assertFalse(DnsHelper::checkA(self::NOT_EXISTS_DOMAIN));
+        $this->assertTrue(DnsHelper::existsA('google.com'));
+        $this->assertFalse(DnsHelper::existsA(self::NOT_EXISTS_DOMAIN));
     }
 
-    public function testForEmail(): void
+    public function testAccpetsEmail(): void
     {
-        $this->assertTrue(DnsHelper::checkForEmail('google.com'));
-        $this->assertTrue(DnsHelper::checkForEmail('noreply@google.com'));
-        $this->assertFalse(DnsHelper::checkForEmail(self::NOT_EXISTS_DOMAIN));
-        $this->assertFalse(DnsHelper::checkForEmail(self::NOT_EXISTS_DOMAIN_EMAIL));
+        $this->assertTrue(DnsHelper::domainAcceptsEmails('google.com'));
+        $this->assertTrue(DnsHelper::domainAcceptsEmails('noreply@google.com'));
+        $this->assertFalse(DnsHelper::domainAcceptsEmails(self::NOT_EXISTS_DOMAIN));
+        $this->assertFalse(DnsHelper::domainAcceptsEmails(self::NOT_EXISTS_DOMAIN_EMAIL));
     }
 }

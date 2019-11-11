@@ -8,7 +8,7 @@ class DnsHelper
      * @param string $hostname hostname without dot at end
      * @link https://bugs.php.net/bug.php?id=78008
      */
-    public static function checkMx(string $hostname): bool
+    public static function existsMx(string $hostname): bool
     {
         $hostname .= '.';
         try {
@@ -24,10 +24,9 @@ class DnsHelper
     }
 
     /**
-     * @param string $hostname
      * @link https://bugs.php.net/bug.php?id=78008
      */
-    public static function checkA(string $hostname): bool
+    public static function existsA(string $hostname): bool
     {
         try {
             if (!@dns_check_record($hostname, 'A')) {
@@ -41,11 +40,14 @@ class DnsHelper
         return false;
     }
 
-    public static function checkForEmail(string $hostnameOrEmail): bool
+    /**
+     * @link https://tools.ietf.org/html/rfc5321#section-5
+     */
+    public static function domainAcceptsEmails(string $hostnameOrEmail): bool
     {
         if (strpos($hostnameOrEmail, '@') !== false) {
             [$void, $hostnameOrEmail] = explode('@', $hostnameOrEmail, 2);
         }
-        return self::checkMx($hostnameOrEmail) || self::checkA($hostnameOrEmail);
+        return self::existsMx($hostnameOrEmail) || self::existsA($hostnameOrEmail);
     }
 }
