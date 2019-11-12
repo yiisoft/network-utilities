@@ -21,6 +21,8 @@ The package contains various network utilities useful for:
 
 ## General usage
 
+### `IpHelper`
+
 ```php
 use Yiisoft\NetworkUtilities\IpHelper;
 
@@ -43,4 +45,15 @@ echo IpHelper::ip2bin('192.168.1.1');
 
 // gets bits from CIDR Notation
 echo IpHelper::getCidrBits('192.168.1.21/32');
+```
+
+### `DnsHelper`
+
+```php
+use Yiisoft\NetworkUtilities\DnsHelper;
+
+// checking DNS record availability
+if(!DnsHelper::checkA('yiiframework.com')) {
+  // record not found
+}
 ```
