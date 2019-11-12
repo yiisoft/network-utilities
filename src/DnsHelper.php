@@ -43,7 +43,7 @@ class DnsHelper
     /**
      * @link https://tools.ietf.org/html/rfc5321#section-5
      */
-    public static function domainAcceptsEmails(string $hostnameOrEmail): bool
+    public static function acceptsEmails(string $hostnameOrEmail): bool
     {
         if (strpos($hostnameOrEmail, '@') !== false) {
             [$void, $hostnameOrEmail] = explode('@', $hostnameOrEmail, 2);

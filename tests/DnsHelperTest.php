@@ -25,11 +25,11 @@ class DnsHelperTest extends TestCase
         $this->assertFalse(DnsHelper::existsA(self::NOT_EXISTS_DOMAIN));
     }
 
-    public function testAccpetsEmail(): void
+    public function testAcceptsEmail(): void
     {
-        $this->assertTrue(DnsHelper::domainAcceptsEmails('google.com'));
-        $this->assertTrue(DnsHelper::domainAcceptsEmails('noreply@google.com'));
-        $this->assertFalse(DnsHelper::domainAcceptsEmails(self::NOT_EXISTS_DOMAIN));
-        $this->assertFalse(DnsHelper::domainAcceptsEmails(self::NOT_EXISTS_DOMAIN_EMAIL));
+        $this->assertTrue(DnsHelper::acceptsEmails('google.com'));
+        $this->assertTrue(DnsHelper::acceptsEmails('noreply@google.com'));
+        $this->assertFalse(DnsHelper::acceptsEmails(self::NOT_EXISTS_DOMAIN));
+        $this->assertFalse(DnsHelper::acceptsEmails(self::NOT_EXISTS_DOMAIN_EMAIL));
     }
 }
