@@ -167,6 +167,9 @@ class IpHelperTest extends TestCase
             'empty' => ['', 0],
             'invalid' => ['apple', 0],
             'trailingLeadingSpace' => [' 0.0.0.0 ', 0],
+            'ipv4LeadingZero1' => ['01.01.01.01', 0],
+            'ipv4LeadingZero2' => ['010.010.010.010', 0],
+            'ipv4LeadingZero3' => ['001.001.001.001', 0],
         ];
     }
 

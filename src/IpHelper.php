@@ -11,7 +11,7 @@ class IpHelper
      * IPv4 address pattern. This pattern is PHP and JavaScript compatible.
      * Allows to define your own IP regexp eg. `'/^'.IpHelper::IPV4_PATTERN.'/(\d+)$/'`
      */
-    public const IPV4_PATTERN = '((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])';
+    public const IPV4_PATTERN = '((2(5[0-5]|[0-4]\d)|1\d{2}|[1-9]?\d)\.){3}(2(5[0-5]|[0-4]\d)|1\d{2}|[1-9]?\d)';
     /**
      * IPv6 address regexp. This regexp is PHP and Javascript compatible.
      */
