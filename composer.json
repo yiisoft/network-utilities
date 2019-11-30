@@ -2,7 +2,11 @@
     "name": "yiisoft/network-utilities",
     "type": "library",
     "description": "Network related utilities",
-    "keywords": ["network", "ip", "mask"],
+    "keywords": [
+        "network",
+        "ip",
+        "mask"
+    ],
     "homepage": "http://www.yiiframework.com/",
     "license": "BSD-3-Clause",
     "support": {
@@ -36,5 +40,8 @@
     },
     "scripts": {
         "phan": "phan --progress-bar -o analysis.txt"
+    },
+    "config": {
+        "sort-packages": true
     }
 }
