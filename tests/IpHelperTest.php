@@ -2,7 +2,6 @@
 
 namespace Yiisoft\NetworkUtilities\Tests;
 
-
 use PHPUnit\Framework\TestCase;
 use Yiisoft\NetworkUtilities\IpHelper;
 
