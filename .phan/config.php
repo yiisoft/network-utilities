@@ -42,8 +42,8 @@ return [
     //
     // Note that the **only** effect of choosing `'5.6'` is to infer that functions removed in php 7.0 exist.
     // (See `backward_compatibility_checks` for additional options)
-    // Automatically inferred from composer.json requirement for "php" of "^7.2"
-    'target_php_version' => '7.2',
+    // Automatically inferred from composer.json requirement for "php" of ">=7.1.0"
+    'target_php_version' => '7.4',
 
     // If enabled, missing properties will be created when
     // they are first seen. If false, we'll report an
@@ -124,13 +124,10 @@ return [
     'ignore_undeclared_variables_in_global_scope' => false,
 
     // Set this to false to emit `PhanUndeclaredFunction` issues for internal functions that Phan has signatures for,
-    // but aren't available in the codebase, or from Reflection.
+    // but aren't available in the codebase, or the internal functions used to run Phan
     // (may lead to false positives if an extension isn't loaded)
     //
     // If this is true(default), then Phan will not warn.
-    //
-    // Even when this is false, Phan will still infer return values and check parameters of internal functions
-    // if Phan has the signatures.
     'ignore_undeclared_functions_with_known_signatures' => false,
 
     // Backwards Compatibility Checking. This is slow
@@ -288,10 +285,10 @@ return [
     // directories/files, unanalyzable files, or files that
     // can't be removed for whatever reason.
     // (e.g. `'@Test\.php$@'`, or `'@vendor/.*/(tests|Tests)/@'`)
-    'exclude_file_regex' => '@^vendor/.*/(tests?|Tests?)/@',
+    'exclude_file_regex' => '@^vendor/.*/(tests?|Tests?|vendor)/@',
 
-    // A list of files that will be excluded from parsing and analysis
-    // and will not be read at all.
+    // A file list that defines files that will be excluded
+    // from parsing and analysis and will not be read at all.
     //
     // This is useful for excluding hopelessly unanalyzable
     // files that can't be removed for whatever reason.
@@ -367,8 +364,7 @@ return [
     // your application should be included in this list.
     'directory_list' => [
         'src',
-        'vendor/phan/phan/src/Phan',
-        'vendor/phpunit/phpunit/src',
+        'vendor'
     ],
 
     // A list of individual files to include in analysis
