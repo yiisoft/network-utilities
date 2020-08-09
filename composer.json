@@ -17,10 +17,10 @@
         "source": "https://github.com/yiisoft/network-utilities"
     },
     "require": {
-        "php": "^7.4"
+        "php": "^7.4|^8.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.0",
+        "phpunit/phpunit": "^9.3",
         "phan/phan": "^3.0"
     },
     "autoload": {
@@ -43,5 +43,7 @@
     },
     "config": {
         "sort-packages": true
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
