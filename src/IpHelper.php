@@ -103,8 +103,8 @@ class IpHelper
         }
 
         $maxMask = $ipVersion === self::IPV4 ? self::IPV4_ADDRESS_LENGTH : self::IPV6_ADDRESS_LENGTH;
-        $mask = $mask ?? $maxMask;
-        $netMask = $netMask ?? $maxMask;
+        $mask ??= $maxMask;
+        $netMask ??= $maxMask;
 
         $binIp = static::ip2bin($ip);
         $binNet = static::ip2bin($net);
