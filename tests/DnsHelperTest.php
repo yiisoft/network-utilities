@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\NetworkUtilities\Tests;
 
 use PHPUnit\Framework\TestCase;

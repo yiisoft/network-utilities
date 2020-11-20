@@ -8,7 +8,9 @@ class DnsHelper
 {
     /**
      * @param string $hostname hostname without dot at end
+     *
      * @return bool
+     *
      * @link https://bugs.php.net/bug.php?id=78008
      */
     public static function existsMx(string $hostname): bool
@@ -29,7 +31,9 @@ class DnsHelper
 
     /**
      * @link https://bugs.php.net/bug.php?id=78008
+     *
      * @param string $hostname
+     *
      * @return bool
      */
     public static function existsA(string $hostname): bool
@@ -49,7 +53,9 @@ class DnsHelper
 
     /**
      * @link https://tools.ietf.org/html/rfc5321#section-5
+     *
      * @param string $hostnameOrEmail
+     *
      * @return bool
      */
     public static function acceptsEmails(string $hostnameOrEmail): bool
