@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\NetworkUtilities\Tests;
 
 use PHPUnit\Framework\TestCase;
@@ -194,7 +196,7 @@ class IpHelperTest extends TestCase
             'random' => ['2001:db8:a::123', 1],
             'random2' => ['2001:db8:85a3::8a2e:370:7334', 1],
             'allHexCharacters' => ['0123:4567:89ab:cdef:CDEF:AB12:1:1', 1],
-            'variableGroupLength' => ['1:12:123:1234::', 1]
+            'variableGroupLength' => ['1:12:123:1234::', 1],
         ];
     }
 

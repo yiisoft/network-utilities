@@ -36,12 +36,12 @@ class IpHelper
      */
     public const IPV4_ADDRESS_LENGTH = 32;
 
-
     /**
      * Gets the IP version.
      *
      * @param string $ip the valid IPv4 or IPv6 address.
      * @param bool $validate enable perform IP address validation. False is best practice if the data comes from a trusted source.
+     *
      * @return int {{IPV4}} or {{IPV6}}
      */
     public static function getIpVersion(string $ip, bool $validate = true): int
@@ -86,6 +86,7 @@ class IpHelper
      *
      * @param string $subnet the valid IPv4 or IPv6 address or CIDR range, e.g.: `10.0.0.0/8` or `2001:af::/64`
      * @param string $range the valid IPv4 or IPv6 CIDR range, e.g. `10.0.0.0/8` or `2001:af::/64`
+     *
      * @return bool whether $subnet is contained by $range
      *
      * @see https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing
@@ -121,6 +122,7 @@ class IpHelper
      * For example `2001:db8::1` will be expanded to `2001:0db8:0000:0000:0000:0000:0000:0001`
      *
      * @param string $ip the original valid IPv6 address
+     *
      * @return string the expanded IPv6 address
      */
     public static function expandIPv6(string $ip): string
@@ -140,6 +142,7 @@ class IpHelper
      * Converts IP address to bits representation.
      *
      * @param string $ip the valid IPv4 or IPv6 address
+     *
      * @return string bits as a string
      */
     public static function ip2bin(string $ip): string
@@ -169,6 +172,7 @@ class IpHelper
      * Gets the bits from CIDR Notation.
      *
      * @param string $ip IP or IP with CIDR Notation (`127.0.0.1`, `2001:db8:a::123/64`)
+     *
      * @return int
      */
     public static function getCidrBits(string $ip): int
