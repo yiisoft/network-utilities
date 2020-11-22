@@ -23,6 +23,7 @@ class DnsHelper
             $result = @dns_get_record($hostname, DNS_MX);
             return $result !== false && count($result) > 0;
         } catch (\Throwable $t) {
+            /** @psalm-suppress InvalidArgument */
             assert($t);
             // eg. name servers are not found https://github.com/yiisoft/yii2/issues/17602
         }
@@ -45,6 +46,7 @@ class DnsHelper
             $result = @dns_get_record($hostname, DNS_A);
             return $result !== false && count($result) > 0;
         } catch (\Throwable $t) {
+            /** @psalm-suppress InvalidArgument */
             assert($t);
             // eg. name servers are not found https://github.com/yiisoft/yii2/issues/17602
         }
