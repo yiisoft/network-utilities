@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\NetworkUtilities;
 
-class DnsHelper
+final class DnsHelper
 {
     /**
      * @param string $hostname hostname without dot at end

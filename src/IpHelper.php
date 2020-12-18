@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\NetworkUtilities;
 
-class IpHelper
+final class IpHelper
 {
     public const IPV4 = 4;
     public const IPV6 = 6;
