@@ -10,7 +10,7 @@ use Yiisoft\NetworkUtilities\DnsHelper;
 /**
  * @group potentially-slow
  */
-class DnsHelperTest extends TestCase
+final class DnsHelperTest extends TestCase
 {
     private const NOT_EXISTS_DOMAIN = 'not-exist-for-ever.eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedomain.xxxxxxxxxxxxxxxxxxxxxxx';
     private const NOT_EXISTS_DOMAIN_EMAIL = 'any@' . self::NOT_EXISTS_DOMAIN;

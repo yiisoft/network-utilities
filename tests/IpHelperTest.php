@@ -7,7 +7,7 @@ namespace Yiisoft\NetworkUtilities\Tests;
 use PHPUnit\Framework\TestCase;
 use Yiisoft\NetworkUtilities\IpHelper;
 
-class IpHelperTest extends TestCase
+final class IpHelperTest extends TestCase
 {
     /**
      * @dataProvider getIpVersionProvider
