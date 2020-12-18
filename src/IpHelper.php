@@ -99,8 +99,8 @@ final class IpHelper
         assert(is_string($ip));
         assert(is_string($net));
 
-        $ipVersion = static::getIpVersion($ip);
-        $netVersion = static::getIpVersion($net);
+        $ipVersion = self::getIpVersion($ip);
+        $netVersion = self::getIpVersion($net);
         if ($ipVersion !== $netVersion) {
             return false;
         }
@@ -109,8 +109,8 @@ final class IpHelper
         $mask ??= $maxMask;
         $netMask ??= $maxMask;
 
-        $binIp = static::ip2bin($ip);
-        $binNet = static::ip2bin($net);
+        $binIp = self::ip2bin($ip);
+        $binNet = self::ip2bin($net);
         $masked = substr($binNet, 0, (int)$netMask);
 
         return ($masked === '' || strpos($binIp, $masked) === 0) && $mask >= $netMask;
@@ -147,7 +147,7 @@ final class IpHelper
      */
     public static function ip2bin(string $ip): string
     {
-        if (static::getIpVersion($ip) === self::IPV4) {
+        if (self::getIpVersion($ip) === self::IPV4) {
             $ipBinary = pack('N', ip2long($ip));
         } elseif (@inet_pton('::1') === false) {
             throw new \RuntimeException('IPv6 is not supported by inet_pton()!');
@@ -180,7 +180,7 @@ final class IpHelper
         if (preg_match('/^(?<ip>.{2,}?)(?:\/(?<bits>-?\d+))?$/', $ip, $matches) === 0) {
             throw new \InvalidArgumentException("Unrecognized address $ip", 1);
         }
-        $ipVersion = static::getIpVersion($matches['ip']);
+        $ipVersion = self::getIpVersion($matches['ip']);
         $maxBits = $ipVersion === self::IPV6 ? self::IPV6_ADDRESS_LENGTH : self::IPV4_ADDRESS_LENGTH;
         $bits = $matches['bits'] ?? null;
         if ($bits === null) {
