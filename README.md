@@ -11,7 +11,7 @@ The package contains various network utilities useful for:
 - Getting info about IP address
 - Checking if IP is in a certain range
 - Expanding IP v6
-- Converiting IP to bits representation
+- Converting IP to bits representation
 
 [![Latest Stable Version](https://poser.pugx.org/yiisoft/network-utilities/v/stable.png)](https://packagist.org/packages/yiisoft/network-utilities)
 [![Total Downloads](https://poser.pugx.org/yiisoft/network-utilities/downloads.png)](https://packagist.org/packages/yiisoft/network-utilities)
