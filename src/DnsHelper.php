@@ -17,10 +17,10 @@ final class DnsHelper
     {
         $hostname = rtrim($hostname, '.') . '.';
         try {
-            if (!@dns_check_record($hostname, 'MX')) {
+            if (!dns_check_record($hostname, 'MX')) {
                 return false;
             }
-            $result = @dns_get_record($hostname, DNS_MX);
+            $result = dns_get_record($hostname, DNS_MX);
             return $result !== false && count($result) > 0;
         } catch (\Throwable $t) {
             /** @psalm-suppress InvalidArgument */
@@ -40,10 +40,10 @@ final class DnsHelper
     public static function existsA(string $hostname): bool
     {
         try {
-            if (!@dns_check_record($hostname, 'A')) {
+            if (!dns_check_record($hostname, 'A')) {
                 return false;
             }
-            $result = @dns_get_record($hostname, DNS_A);
+            $result = dns_get_record($hostname, DNS_A);
             return $result !== false && count($result) > 0;
         } catch (\Throwable $t) {
             /** @psalm-suppress InvalidArgument */
