@@ -24,7 +24,6 @@ final class DnsHelperTest extends TestCase
     public function testMxWithWrongDomain(): void
     {
         $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Failed to get DNS record "ya2.ru". dns_get_record(): A temporary server error occurred.');
         DnsHelper::existsMx('ya2.ru');
     }
 
@@ -37,7 +36,6 @@ final class DnsHelperTest extends TestCase
     public function testAWithWrongDomain(): void
     {
         $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Failed to get DNS record "ya2.ru". dns_get_record(): A temporary server error occurred.');
         DnsHelper::existsA('ya2.ru');
     }
 
