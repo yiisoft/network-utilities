@@ -4,53 +4,56 @@ declare(strict_types=1);
 
 namespace Yiisoft\NetworkUtilities;
 
+use RuntimeException;
+
 final class DnsHelper
 {
     /**
      * @param string $hostname hostname without dot at end
      *
      * @return bool
-     *
-     * @link https://bugs.php.net/bug.php?id=78008
      */
     public static function existsMx(string $hostname): bool
     {
-        $hostname = rtrim($hostname, '.') . '.';
-        try {
-            if (!dns_check_record($hostname, 'MX')) {
-                return false;
+        /** @psalm-suppress InvalidArgument, MixedArgumentTypeCoercion */
+        set_error_handler(
+            static function (int $errorNumber, string $errorString) use ($hostname): ?bool {
+                throw new RuntimeException(
+                    sprintf('Failed to get DNS record "%s". ', $hostname) . $errorString,
+                    $errorNumber
+                );
             }
-            $result = dns_get_record($hostname, DNS_MX);
-            return $result !== false && count($result) > 0;
-        } catch (\Throwable $t) {
-            /** @psalm-suppress InvalidArgument */
-            assert($t);
-            // eg. name servers are not found https://github.com/yiisoft/yii2/issues/17602
-        }
-        return false;
+        );
+        $hostname = rtrim($hostname, '.') . '.';
+        $result = dns_get_record($hostname, DNS_MX);
+
+        restore_error_handler();
+
+        return count($result) > 0;
     }
 
     /**
-     * @link https://bugs.php.net/bug.php?id=78008
-     *
      * @param string $hostname
      *
      * @return bool
      */
     public static function existsA(string $hostname): bool
     {
-        try {
-            if (!dns_check_record($hostname, 'A')) {
-                return false;
+        /** @psalm-suppress InvalidArgument, MixedArgumentTypeCoercion */
+        set_error_handler(
+            static function (int $errorNumber, string $errorString) use ($hostname): ?bool {
+                throw new RuntimeException(
+                    sprintf('Failed to get DNS record "%s". ', $hostname) . $errorString,
+                    $errorNumber
+                );
             }
-            $result = dns_get_record($hostname, DNS_A);
-            return $result !== false && count($result) > 0;
-        } catch (\Throwable $t) {
-            /** @psalm-suppress InvalidArgument */
-            assert($t);
-            // eg. name servers are not found https://github.com/yiisoft/yii2/issues/17602
-        }
-        return false;
+        );
+
+        $result = dns_get_record($hostname, DNS_A);
+
+        restore_error_handler();
+
+        return count($result) > 0;
     }
 
     /**

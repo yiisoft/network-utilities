@@ -12,7 +12,7 @@ use Yiisoft\NetworkUtilities\DnsHelper;
  */
 final class DnsHelperTest extends TestCase
 {
-    private const NOT_EXISTS_DOMAIN = 'ya2.ru';
+    private const NOT_EXISTS_DOMAIN = 'non-exist-for-everrrrrr.domain';
     private const NOT_EXISTS_DOMAIN_EMAIL = 'any@' . self::NOT_EXISTS_DOMAIN;
 
     public function testMx(): void
@@ -21,10 +21,24 @@ final class DnsHelperTest extends TestCase
         $this->assertFalse(DnsHelper::existsMx(self::NOT_EXISTS_DOMAIN));
     }
 
+    public function testMxWithWrongDomain(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Failed to get DNS record "ya2.ru". dns_get_record(): A temporary server error occurred.');
+        DnsHelper::existsMx('ya2.ru');
+    }
+
     public function testA(): void
     {
         $this->assertTrue(DnsHelper::existsA('google.com'));
         $this->assertFalse(DnsHelper::existsA(self::NOT_EXISTS_DOMAIN));
+    }
+
+    public function testAWithWrongDomain(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Failed to get DNS record "ya2.ru". dns_get_record(): A temporary server error occurred.');
+        DnsHelper::existsA('ya2.ru');
     }
 
     public function testAcceptsEmail(): void
