@@ -12,6 +12,7 @@ The package contains various network utilities useful for:
 - Checking if IP is in a certain range
 - Expanding IP v6
 - Converting IP to bits representation
+- Checking DNS record availability
 
 [![Latest Stable Version](https://poser.pugx.org/yiisoft/network-utilities/v/stable.png)](https://packagist.org/packages/yiisoft/network-utilities)
 [![Total Downloads](https://poser.pugx.org/yiisoft/network-utilities/downloads.png)](https://packagist.org/packages/yiisoft/network-utilities)
@@ -56,7 +57,7 @@ echo IpHelper::getCidrBits('192.168.1.21/32');
 use Yiisoft\NetworkUtilities\DnsHelper;
 
 // checking DNS record availability
-if(!DnsHelper::checkA('yiiframework.com')) {
+if(!DnsHelper::existsA('yiiframework.com')) {
   // record not found
 }
 ```
@@ -71,10 +72,11 @@ The package is tested with [PHPUnit](https://phpunit.de/). To run tests:
 
 ### Mutation testing
 
-The package tests are checked with [Infection](https://infection.github.io/) mutation framework. To run it:
+The package tests are checked with [Infection](https://infection.github.io/) mutation framework with
+[Infection Static Analysis Plugin](https://github.com/Roave/infection-static-analysis-plugin). To run it:
 
 ```shell
-./vendor/bin/infection
+./vendor/bin/roave-infection-static-analysis-plugin
 ```
 
 ### Static analysis
