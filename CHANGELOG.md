@@ -1,4 +1,4 @@
-# Network utilities Change Log
+# Yii Network Utilities Change Log
 
 ## 1.0.0 under development
 

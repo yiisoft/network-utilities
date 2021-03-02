@@ -11,7 +11,7 @@
     </php>
 
     <testsuites>
-        <testsuite name="Yii network utilities tests">
+        <testsuite name="Yii Network Utilities tests">
             <directory>./tests</directory>
         </testsuite>
     </testsuites>
