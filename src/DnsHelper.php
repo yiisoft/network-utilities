@@ -9,6 +9,8 @@ use RuntimeException;
 final class DnsHelper
 {
     /**
+     * Checks DNS MX record availability.
+     *
      * @param string $hostname hostname without dot at end
      *
      * @return bool
@@ -33,6 +35,8 @@ final class DnsHelper
     }
 
     /**
+     * Checks DNS A record availability.
+     *
      * @param string $hostname
      *
      * @return bool
@@ -57,6 +61,8 @@ final class DnsHelper
     }
 
     /**
+     * Checks email's domain availability.
+     *
      * @link https://tools.ietf.org/html/rfc5321#section-5
      *
      * @param string $hostnameOrEmail
