@@ -6,14 +6,17 @@ namespace Yiisoft\NetworkUtilities;
 
 use RuntimeException;
 
+/**
+ * DnsHelper contains static methods to work with DNS.
+ */
 final class DnsHelper
 {
     /**
      * Checks DNS MX record availability.
      *
-     * @param string $hostname hostname without dot at end
+     * @param string $hostname Hostname without dot at end.
      *
-     * @return bool
+     * @return bool Whether MX record exists.
      */
     public static function existsMx(string $hostname): bool
     {
@@ -37,9 +40,9 @@ final class DnsHelper
     /**
      * Checks DNS A record availability.
      *
-     * @param string $hostname
+     * @param string $hostname Hostname without dot at end.
      *
-     * @return bool
+     * @return bool Whether A records exists.
      */
     public static function existsA(string $hostname): bool
     {
@@ -65,9 +68,9 @@ final class DnsHelper
      *
      * @link https://tools.ietf.org/html/rfc5321#section-5
      *
-     * @param string $hostnameOrEmail
+     * @param string $hostnameOrEmail Hostname without dot at end or an email.
      *
-     * @return bool
+     * @return bool Whether email domain is available.
      */
     public static function acceptsEmails(string $hostnameOrEmail): bool
     {

@@ -4,6 +4,15 @@ declare(strict_types=1);
 
 namespace Yiisoft\NetworkUtilities;
 
+use InvalidArgumentException;
+use RuntimeException;
+use function assert;
+use function is_string;
+use function strlen;
+
+/**
+ * DnsHelper contains static methods to work with IPs.
+ */
 final class IpHelper
 {
     public const IPV4 = 4;
@@ -11,7 +20,7 @@ final class IpHelper
 
     /**
      * IPv4 address pattern. This pattern is PHP and JavaScript compatible.
-     * Allows to define your own IP regexp eg. `'/^'.IpHelper::IPV4_PATTERN.'/(\d+)$/'`
+     * Allows to define your own IP regexp eg. `'/^'.IpHelper::IPV4_PATTERN.'/(\d+)$/'`.
      */
     public const IPV4_PATTERN = '((2(5[0-5]|[0-4]\d)|1\d{2}|[1-9]?\d)\.){3}(2(5[0-5]|[0-4]\d)|1\d{2}|[1-9]?\d)';
     /**
@@ -20,7 +29,7 @@ final class IpHelper
     public const IPV4_REGEXP = '/^' . self::IPV4_PATTERN . '$/';
     /**
      * IPv6 address pattern. This pattern is PHP and Javascript compatible.
-     * Allows to define your own IP regexp eg. `'/^'.IpHelper::IPV6_PATTERN.'/(\d+)$/'`
+     * Allows to define your own IP regexp eg. `'/^'.IpHelper::IPV6_PATTERN.'/(\d+)$/'`.
      */
     public const IPV6_PATTERN = '(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:' . self::IPV4_PATTERN . ')';
     /**
@@ -28,31 +37,31 @@ final class IpHelper
      */
     public const IPV6_REGEXP = '/^' . self::IPV6_PATTERN . '$/';
     /**
-     * The length of IPv6 address in bits
+     * The length of IPv6 address in bits.
      */
     public const IPV6_ADDRESS_LENGTH = 128;
     /**
-     * The length of IPv4 address in bits
+     * The length of IPv4 address in bits.
      */
     public const IPV4_ADDRESS_LENGTH = 32;
 
     /**
      * Gets the IP version.
      *
-     * @param string $ip the valid IPv4 or IPv6 address.
-     * @param bool $validate enable perform IP address validation. False is best practice if the data comes from a trusted source.
+     * @param string $ip The valid IPv4 or IPv6 address.
+     * @param bool $validate Enable perform IP address validation. False is best practice if the data comes from a trusted source.
      *
-     * @return int {@see IPV4} or {@see IPV6}
+     * @return int {@see IPV4} or {@see IPV6}.
      */
     public static function getIpVersion(string $ip, bool $validate = true): int
     {
         $ipStringLength = strlen($ip);
         if ($ipStringLength < 2) {
-            throw new \InvalidArgumentException("Unrecognized address $ip", 10);
+            throw new InvalidArgumentException("Unrecognized address $ip", 10);
         }
         $preIpVersion = strpos($ip, ':') === false ? self::IPV4 : self::IPV6;
         if ($preIpVersion === self::IPV4 && $ipStringLength < 7) {
-            throw new \InvalidArgumentException("Unrecognized address $ip", 11);
+            throw new InvalidArgumentException("Unrecognized address $ip", 11);
         }
         if (!$validate) {
             return $preIpVersion;
@@ -64,7 +73,7 @@ final class IpHelper
         if ($preIpVersion === self::IPV6 && preg_match(self::IPV6_REGEXP, $ip) === 1) {
             return self::IPV6;
         }
-        throw new \InvalidArgumentException("Unrecognized address $ip", 12);
+        throw new InvalidArgumentException("Unrecognized address $ip.", 12);
     }
 
     /**
@@ -84,10 +93,10 @@ final class IpHelper
      * IpHelper::inRange('192.168.1.21/32', '192.168.1.0/24'); // true
      * ```
      *
-     * @param string $subnet the valid IPv4 or IPv6 address or CIDR range, e.g.: `10.0.0.0/8` or `2001:af::/64`
-     * @param string $range the valid IPv4 or IPv6 CIDR range, e.g. `10.0.0.0/8` or `2001:af::/64`
+     * @param string $subnet The valid IPv4 or IPv6 address or CIDR range, e.g.: `10.0.0.0/8` or `2001:af::/64`.
+     * @param string $range The valid IPv4 or IPv6 CIDR range, e.g. `10.0.0.0/8` or `2001:af::/64`.
      *
-     * @return bool whether $subnet is contained by $range
+     * @return bool Whether $subnet is contained by $range.
      *
      * @see https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing
      */
@@ -119,20 +128,20 @@ final class IpHelper
     /**
      * Expands an IPv6 address to it's full notation.
      *
-     * For example `2001:db8::1` will be expanded to `2001:0db8:0000:0000:0000:0000:0000:0001`
+     * For example `2001:db8::1` will be expanded to `2001:0db8:0000:0000:0000:0000:0000:0001`.
      *
-     * @param string $ip the original valid IPv6 address
+     * @param string $ip The original valid IPv6 address.
      *
-     * @return string the expanded IPv6 address
+     * @return string The expanded IPv6 address.
      */
     public static function expandIPv6(string $ip): string
     {
         $ipRaw = @inet_pton($ip);
         if ($ipRaw === false) {
             if (@inet_pton('::1') === false) {
-                throw new \RuntimeException('IPv6 is not supported by inet_pton()!');
+                throw new RuntimeException('IPv6 is not supported by inet_pton()!');
             }
-            throw new \InvalidArgumentException("Unrecognized address $ip");
+            throw new InvalidArgumentException("Unrecognized address $ip.");
         }
         $hex = unpack('H*hex', $ipRaw);
         return substr(preg_replace('/([a-f0-9]{4})/i', '$1:', $hex['hex']), 0, -1);
@@ -141,16 +150,16 @@ final class IpHelper
     /**
      * Converts IP address to bits representation.
      *
-     * @param string $ip the valid IPv4 or IPv6 address
+     * @param string $ip The valid IPv4 or IPv6 address.
      *
-     * @return string bits as a string
+     * @return string Bits as a string.
      */
     public static function ip2bin(string $ip): string
     {
         if (self::getIpVersion($ip) === self::IPV4) {
             $ipBinary = pack('N', ip2long($ip));
         } elseif (@inet_pton('::1') === false) {
-            throw new \RuntimeException('IPv6 is not supported by inet_pton()!');
+            throw new RuntimeException('IPv6 is not supported by inet_pton()!');
         } else {
             $ipBinary = inet_pton($ip);
         }
@@ -161,7 +170,7 @@ final class IpHelper
         for ($i = 0, $iMax = strlen($ipBinary); $i < $iMax; $i += 4) {
             $data = substr($ipBinary, $i, 4);
             if (!is_string($data)) {
-                throw new \RuntimeException('An error occurred while converting IP address to bits representation.');
+                throw new RuntimeException('An error occurred while converting IP address to bits representation.');
             }
             $result .= str_pad(decbin(unpack('N', $data)[1]), 32, '0', STR_PAD_LEFT);
         }
@@ -171,14 +180,14 @@ final class IpHelper
     /**
      * Gets the bits from CIDR Notation.
      *
-     * @param string $ip IP or IP with CIDR Notation (`127.0.0.1`, `2001:db8:a::123/64`)
+     * @param string $ip IP or IP with CIDR Notation (`127.0.0.1`, `2001:db8:a::123/64`).
      *
-     * @return int
+     * @return int Bits.
      */
     public static function getCidrBits(string $ip): int
     {
         if (preg_match('/^(?<ip>.{2,}?)(?:\/(?<bits>-?\d+))?$/', $ip, $matches) === 0) {
-            throw new \InvalidArgumentException("Unrecognized address $ip", 1);
+            throw new InvalidArgumentException("Unrecognized address $ip.", 1);
         }
         $ipVersion = self::getIpVersion($matches['ip']);
         $maxBits = $ipVersion === self::IPV6 ? self::IPV6_ADDRESS_LENGTH : self::IPV4_ADDRESS_LENGTH;
@@ -188,10 +197,10 @@ final class IpHelper
         }
         $bits = (int)$bits;
         if ($bits < 0) {
-            throw new \InvalidArgumentException('The number of CIDR bits cannot be negative', 2);
+            throw new InvalidArgumentException('The number of CIDR bits cannot be negative.', 2);
         }
         if ($bits > $maxBits) {
-            throw new \InvalidArgumentException("CIDR bits is greater than $bits", 3);
+            throw new InvalidArgumentException("CIDR bits is greater than $bits.", 3);
         }
         return $bits;
     }
