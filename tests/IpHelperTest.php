@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\NetworkUtilities\Tests;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Yiisoft\NetworkUtilities\IpHelper;
 
@@ -26,21 +27,21 @@ final class IpHelperTest extends TestCase
     public function getIpVersionProvider(): array
     {
         return [
-            'emptyString' => ['', false, null, \InvalidArgumentException::class],
-            'emptyStringValidate' => ['', true, null, \InvalidArgumentException::class],
-            'tooShort' => ['1', false, null, \InvalidArgumentException::class],
-            'tooShortValidate' => ['1', true, null, \InvalidArgumentException::class],
+            'emptyString' => ['', false, null, InvalidArgumentException::class],
+            'emptyStringValidate' => ['', true, null, InvalidArgumentException::class],
+            'tooShort' => ['1', false, null, InvalidArgumentException::class],
+            'tooShortValidate' => ['1', true, null, InvalidArgumentException::class],
             'ipv4Minimal' => ['0.0.0.0', false, IpHelper::IPV4],
-            'ipv4TooShort' => ['0.0.0.', false, null, \InvalidArgumentException::class],
+            'ipv4TooShort' => ['0.0.0.', false, null, InvalidArgumentException::class],
             'ipv4' => ['192.168.0.1', false, IpHelper::IPV4],
             'ipv4Max' => ['255.255.255.255', false, IpHelper::IPV4],
             'ipv4MaxValidation' => ['255.255.255.255', true, IpHelper::IPV4],
-            'ipv4OverMax' => ['255.255.255.256', true, null, \InvalidArgumentException::class],
+            'ipv4OverMax' => ['255.255.255.256', true, null, InvalidArgumentException::class],
             'ipv4Cidr' => ['192.168.0.1/24', false, IpHelper::IPV4, null, 'IPv4 with CIDR is resolved correctly'],
-            'ipv4CidrValidation' => ['192.168.0.1/24', true, null, \InvalidArgumentException::class],
+            'ipv4CidrValidation' => ['192.168.0.1/24', true, null, InvalidArgumentException::class],
             'ipv6' => ['fb01::1', false, IpHelper::IPV6],
             'ipv6Cidr' => ['fb01::1/24', false, IpHelper::IPV6, null, 'IPv6 with CIDR is resolved correctly'],
-            'ipv6CidrValidation' => ['fb01::1/24', true, null, \InvalidArgumentException::class],
+            'ipv6CidrValidation' => ['fb01::1/24', true, null, InvalidArgumentException::class],
             'ipv6Minimal' => ['::', false, IpHelper::IPV6],
             'ipv6MinimalValidation' => ['::', true, IpHelper::IPV6],
             'ipv6MappedIpv4' => ['::ffff:192.168.0.2', false, IpHelper::IPV6],
@@ -69,7 +70,7 @@ final class IpHelperTest extends TestCase
 
     public function testIpv6ExpandingWithInvalidValue(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         IpHelper::expandIPv6('fa01::1/64');
     }
 
@@ -121,25 +122,25 @@ final class IpHelperTest extends TestCase
     public function getCidrBitsDataProvider(): array
     {
         return [
-            'invalidEmpty' => ['', null, \InvalidArgumentException::class],
-            'invalidTooShort' => ['1', null, \InvalidArgumentException::class],
-            'invalidIp' => ['999.999.999.999', null, \InvalidArgumentException::class],
-            'invalidIpCidr' => ['999.999.999.999/22', null, \InvalidArgumentException::class],
+            'invalidEmpty' => ['', null, InvalidArgumentException::class],
+            'invalidTooShort' => ['1', null, InvalidArgumentException::class],
+            'invalidIp' => ['999.999.999.999', null, InvalidArgumentException::class],
+            'invalidIpCidr' => ['999.999.999.999/22', null, InvalidArgumentException::class],
             'shortestIp' => ['::', 128],
             'ipv4' => ['127.0.0.1', 32],
             'ipv6' => ['::1', 128],
-            'ipv4-negative' => ['127.0.0.1/-1', null, \InvalidArgumentException::class],
+            'ipv4-negative' => ['127.0.0.1/-1', null, InvalidArgumentException::class],
             'ipv4-min' => ['127.0.0.1/0', 0],
             'ipv4-normal' => ['127.0.0.1/13', 13],
             'ipv4-max' => ['127.0.0.1/32', 32],
-            'ipv4-overflow' => ['127.0.0.1/33', null, \InvalidArgumentException::class],
-            'ipv6-negative' => ['::1/-1', null, \InvalidArgumentException::class],
+            'ipv4-overflow' => ['127.0.0.1/33', null, InvalidArgumentException::class],
+            'ipv6-negative' => ['::1/-1', null, InvalidArgumentException::class],
             'ipv6-min' => ['::1/0', 0],
             'ipv6-normal' => ['::1/72', 72],
             'ipv6-normalExpanded' => ['2001:0db8:85a3:0000:0000:8a2e:0370:7334/23', 23],
             'ipv6-normalIpv4Mapped' => ['::ffff:192.0.2.128/109', 109],
             'ipv6-max' => ['::1/128', 128],
-            'ipv6-overflow' => ['::1/129', null, \InvalidArgumentException::class],
+            'ipv6-overflow' => ['::1/129', null, InvalidArgumentException::class],
         ];
     }
 

@@ -42,24 +42,24 @@ composer require yiisoft/network-utilities --prefer-dist
 ```php
 use Yiisoft\NetworkUtilities\IpHelper;
 
-// checking IP version
+// Check IP version.
 $version = IpHelper::getIpVersion('192.168.1.1');
 if ($version === IpHelper::IPV4) {
     // ...
 }
 
-// checking if IP is in a certain range
+// Check if IP is in a certain range.
 if (!IpHelper::inRange('192.168.1.21/32', '192.168.1.0/24')) {
     throw new \RuntimeException('Access denied!');
 }
 
-// expanding IP v6
+// Expand IP v6.
 echo IpHelper::expandIPv6('2001:db8::1');
 
-// converting IP to bits representation
+// Convert IP to bits representation.
 echo IpHelper::ip2bin('192.168.1.1');
 
-// gets bits from CIDR Notation
+// Get bits from CIDR Notation.
 echo IpHelper::getCidrBits('192.168.1.21/32');
 ```
 
@@ -68,9 +68,9 @@ echo IpHelper::getCidrBits('192.168.1.21/32');
 ```php
 use Yiisoft\NetworkUtilities\DnsHelper;
 
-// checking DNS record availability
-if(!DnsHelper::existsA('yiiframework.com')) {
-  // record not found
+// Chec DNS record availability.
+if (!DnsHelper::existsA('yiiframework.com')) {
+  // Record not found.
 }
 ```
 
