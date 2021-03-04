@@ -68,7 +68,7 @@ echo IpHelper::getCidrBits('192.168.1.21/32');
 ```php
 use Yiisoft\NetworkUtilities\DnsHelper;
 
-// Chec DNS record availability.
+// Check DNS record availability.
 if (!DnsHelper::existsA('yiiframework.com')) {
   // Record not found.
 }
