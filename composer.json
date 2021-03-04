@@ -5,7 +5,8 @@
     "keywords": [
         "network",
         "ip",
-        "mask"
+        "mask",
+        "dns"
     ],
     "homepage": "http://www.yiiframework.com/",
     "license": "BSD-3-Clause",
@@ -33,11 +34,6 @@
     "autoload-dev": {
         "psr-4": {
             "Yiisoft\\NetworkUtilities\\Tests\\": "tests"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "3.0.x-dev"
         }
     },
     "scripts": {
