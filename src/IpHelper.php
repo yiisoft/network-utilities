@@ -59,7 +59,7 @@ final class IpHelper
         if ($ipStringLength < 2) {
             throw new InvalidArgumentException("Unrecognized address $ip", 10);
         }
-        $preIpVersion = strpos($ip, ':') === false ? self::IPV4 : self::IPV6;
+        $preIpVersion = str_contains($ip, ':') ? self::IPV6 : self::IPV4;
         if ($preIpVersion === self::IPV4 && $ipStringLength < 7) {
             throw new InvalidArgumentException("Unrecognized address $ip", 11);
         }
