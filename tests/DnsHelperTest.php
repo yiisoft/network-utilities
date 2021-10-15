@@ -25,8 +25,8 @@ final class DnsHelperTest extends TestCase
     public function testMxWithWrongDomain(): void
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Failed to get DNS record "wrong/domain".');
-        DnsHelper::existsMx('wrong/domain');
+        $this->expectExceptionMessage('Failed to get DNS record "wrong~domain".');
+        DnsHelper::existsMx('wrong~domain');
     }
 
     public function testA(): void
@@ -38,8 +38,8 @@ final class DnsHelperTest extends TestCase
     public function testAWithWrongDomain(): void
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Failed to get DNS record "wrong/domain".');
-        DnsHelper::existsA('wrong/domain');
+        $this->expectExceptionMessage('Failed to get DNS record "wrong~domain".');
+        DnsHelper::existsA('wrong~domain');
     }
 
     public function testAcceptsEmail(): void
