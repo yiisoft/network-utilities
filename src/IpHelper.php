@@ -6,6 +6,7 @@ namespace Yiisoft\NetworkUtilities;
 
 use InvalidArgumentException;
 use RuntimeException;
+
 use function assert;
 use function is_string;
 use function strlen;
@@ -120,7 +121,7 @@ final class IpHelper
 
         $binIp = self::ip2bin($ip);
         $binNet = self::ip2bin($net);
-        $masked = substr($binNet, 0, (int)$netMask);
+        $masked = substr($binNet, 0, (int) $netMask);
 
         return ($masked === '' || strpos($binIp, $masked) === 0) && $mask >= $netMask;
     }
@@ -143,7 +144,10 @@ final class IpHelper
             }
             throw new InvalidArgumentException("Unrecognized address $ip.");
         }
+
+        /** @psalm-var array{hex:string} $hex */
         $hex = unpack('H*hex', $ipRaw);
+
         return substr(preg_replace('/([a-f0-9]{4})/i', '$1:', $hex['hex']), 0, -1);
     }
 
@@ -172,6 +176,7 @@ final class IpHelper
             if (!is_string($data)) {
                 throw new RuntimeException('An error occurred while converting IP address to bits representation.');
             }
+            /** @psalm-suppress MixedArgument */
             $result .= str_pad(decbin(unpack('N', $data)[1]), 32, '0', STR_PAD_LEFT);
         }
         return $result;
@@ -195,7 +200,7 @@ final class IpHelper
         if ($bits === null) {
             return $maxBits;
         }
-        $bits = (int)$bits;
+        $bits = (int) $bits;
         if ($bits < 0) {
             throw new InvalidArgumentException('The number of CIDR bits cannot be negative.', 2);
         }

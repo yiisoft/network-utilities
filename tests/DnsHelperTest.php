@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Yiisoft\NetworkUtilities\Tests;
 
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 use Yiisoft\NetworkUtilities\DnsHelper;
 
 /**
@@ -23,8 +24,9 @@ final class DnsHelperTest extends TestCase
 
     public function testMxWithWrongDomain(): void
     {
-        $this->expectException(\RuntimeException::class);
-        DnsHelper::existsMx('ya2.ru');
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Failed to get DNS record ".wrongdomain".');
+        DnsHelper::existsMx('.wrongdomain');
     }
 
     public function testA(): void
@@ -35,8 +37,9 @@ final class DnsHelperTest extends TestCase
 
     public function testAWithWrongDomain(): void
     {
-        $this->expectException(\RuntimeException::class);
-        DnsHelper::existsA('ya2.ru');
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Failed to get DNS record ".wrongdomain".');
+        DnsHelper::existsA('.wrongdomain');
     }
 
     public function testAcceptsEmail(): void
