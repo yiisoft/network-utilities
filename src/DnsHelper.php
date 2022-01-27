@@ -20,15 +20,13 @@ final class DnsHelper
      */
     public static function existsMx(string $hostname): bool
     {
-        /** @psalm-suppress InvalidArgument, MixedArgumentTypeCoercion */
-        set_error_handler(
-            static function (int $errorNumber, string $errorString) use ($hostname): ?bool {
-                throw new RuntimeException(
-                    sprintf('Failed to get DNS record "%s". ', $hostname) . $errorString,
-                    $errorNumber
-                );
-            }
-        );
+        set_error_handler(static function (int $errorNumber, string $errorString) use ($hostname): bool {
+            throw new RuntimeException(
+                sprintf('Failed to get DNS record "%s". ', $hostname) . $errorString,
+                $errorNumber
+            );
+        });
+
         $hostname = rtrim($hostname, '.') . '.';
         $result = dns_get_record($hostname, DNS_MX);
 
@@ -46,15 +44,12 @@ final class DnsHelper
      */
     public static function existsA(string $hostname): bool
     {
-        /** @psalm-suppress InvalidArgument, MixedArgumentTypeCoercion */
-        set_error_handler(
-            static function (int $errorNumber, string $errorString) use ($hostname): ?bool {
-                throw new RuntimeException(
-                    sprintf('Failed to get DNS record "%s". ', $hostname) . $errorString,
-                    $errorNumber
-                );
-            }
-        );
+        set_error_handler(static function (int $errorNumber, string $errorString) use ($hostname): bool {
+            throw new RuntimeException(
+                sprintf('Failed to get DNS record "%s". ', $hostname) . $errorString,
+                $errorNumber
+            );
+        });
 
         $result = dns_get_record($hostname, DNS_A);
 
