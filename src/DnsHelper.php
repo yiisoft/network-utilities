@@ -32,7 +32,7 @@ final class DnsHelper
 
         restore_error_handler();
 
-        return count($result) > 0;
+        return (is_countable($result) ? count($result) : 0) > 0;
     }
 
     /**
@@ -55,7 +55,7 @@ final class DnsHelper
 
         restore_error_handler();
 
-        return count($result) > 0;
+        return (is_countable($result) ? count($result) : 0) > 0;
     }
 
     /**
@@ -69,7 +69,7 @@ final class DnsHelper
      */
     public static function acceptsEmails(string $hostnameOrEmail): bool
     {
-        if (strpos($hostnameOrEmail, '@') !== false) {
+        if (str_contains($hostnameOrEmail, '@')) {
             [, $hostnameOrEmail] = explode('@', $hostnameOrEmail, 2);
         }
         return self::existsMx($hostnameOrEmail) || self::existsA($hostnameOrEmail);
