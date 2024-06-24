@@ -60,7 +60,7 @@ final class IpHelper
         if ($ipStringLength < 2) {
             throw new InvalidArgumentException("Unrecognized address $ip", 10);
         }
-        $preIpVersion = strpos($ip, ':') === false ? self::IPV4 : self::IPV6;
+        $preIpVersion = !str_contains($ip, ':') ? self::IPV4 : self::IPV6;
         if ($preIpVersion === self::IPV4 && $ipStringLength < 7) {
             throw new InvalidArgumentException("Unrecognized address $ip", 11);
         }
@@ -123,7 +123,7 @@ final class IpHelper
         $binNet = self::ip2bin($net);
         $masked = substr($binNet, 0, (int) $netMask);
 
-        return ($masked === '' || strpos($binIp, $masked) === 0) && $mask >= $netMask;
+        return ($masked === '' || str_starts_with($binIp, $masked)) && $mask >= $netMask;
     }
 
     /**
