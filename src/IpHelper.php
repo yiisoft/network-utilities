@@ -173,7 +173,7 @@ final class IpHelper
         $result = '';
         for ($i = 0, $iMax = strlen($ipBinary); $i < $iMax; $i += 4) {
             $data = substr($ipBinary, $i, 4);
-            if (!is_string($data)) {
+            if (empty($data)) {
                 throw new RuntimeException('An error occurred while converting IP address to bits representation.');
             }
             /** @psalm-suppress MixedArgument */
