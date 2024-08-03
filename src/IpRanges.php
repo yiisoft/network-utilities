@@ -97,6 +97,18 @@ final class IpRanges
     }
 
     /**
+     * Get custom network aliases, that can be used in {@see $ranges}.
+     *
+     * @return array Network aliases.
+     *
+     * @see $networks
+     */
+    public function getNetworks(): array
+    {
+        return $this->networks;
+    }
+
+    /**
      * Whether the IP address with specified CIDR is allowed according to the {@see $ranges} list.
      */
     public function isAllowed(string $ip): bool
