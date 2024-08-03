@@ -18,7 +18,6 @@ final class IpRanges
 
     /**
      * Default network aliases.
-     *
      * @see https://datatracker.ietf.org/doc/html/rfc5735#section-4
      */
     public const DEFAULT_NETWORKS = [
@@ -97,7 +96,7 @@ final class IpRanges
     }
 
     /**
-     * Get custom network aliases, that can be used in {@see $ranges}.
+     * Get network aliases, that can be used in {@see $ranges}.
      *
      * @return array Network aliases.
      *
