@@ -6,6 +6,12 @@ namespace Yiisoft\NetworkUtilities;
 
 use InvalidArgumentException;
 
+use function array_key_exists;
+use function array_merge;
+use function array_unique;
+use function strlen;
+use function strpos;
+
 /**
  * `IpRanges` represents a set of IP ranges that are allowed or forbidden.
  */
