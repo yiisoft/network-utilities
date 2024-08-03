@@ -2,7 +2,7 @@
 
 ## 1.0.2 under development
 
-- no changes in this release.
+- New #63: Add `IpRanges` that represents a set of IP ranges that are allowed or forbidden.
 
 ## 1.0.1 January 27, 2022
 

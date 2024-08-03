@@ -6,6 +6,9 @@ namespace Yiisoft\NetworkUtilities;
 
 use InvalidArgumentException;
 
+/**
+ * `IpRanges` represents a set of IP ranges that are allowed or forbidden.
+ */
 final class IpRanges
 {
     public const ANY = 'any';
