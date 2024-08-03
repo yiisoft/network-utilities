@@ -167,7 +167,7 @@ final class IpRanges
      */
     private function parseNegatedRange(string $string): array
     {
-        $isNegated = str_starts_with($string, '!');
+        $isNegated = strpos($string, '!') === 0;
         return [$isNegated, $isNegated ? substr($string, strlen('!')) : $string];
     }
 }
