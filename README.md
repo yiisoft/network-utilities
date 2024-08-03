@@ -73,6 +73,29 @@ if (!DnsHelper::existsA('yiiframework.com')) {
 }
 ```
 
+### `IpRanges`
+
+```php
+use Yiisoft\NetworkUtilities\IpRanges;
+
+$ipRanges = new IpRanges(
+    [
+        '10.0.1.0/24',
+        '2001:db0:1:2::/64',
+        IpRanges::LOCALHOST,
+        'myNetworkEu',
+        '!' . IpRanges::ANY,
+    ],
+    [
+        'myNetworkEu' => ['1.2.3.4/10', '5.6.7.8'],
+    ],
+);
+
+$ipRanges->isAllowed('10.0.1.28/28'); // true
+$ipRanges->isAllowed('1.2.3.4'); // true
+$ipRanges->isAllowed('192.168.0.1'); // false
+```
+
 ## Documentation
 
 - [Internals](docs/internals.md)
