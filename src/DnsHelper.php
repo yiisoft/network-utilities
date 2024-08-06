@@ -70,6 +70,9 @@ final class DnsHelper
     public static function acceptsEmails(string $hostnameOrEmail): bool
     {
         if (strpos($hostnameOrEmail, '@') !== false) {
+            /**
+             * @psalm-suppress PossiblyUndefinedArrayOffset In this case `explode()` always returns an array with 2 elements.
+             */
             [, $hostnameOrEmail] = explode('@', $hostnameOrEmail, 2);
         }
         return self::existsMx($hostnameOrEmail) || self::existsA($hostnameOrEmail);
