@@ -13,7 +13,7 @@ use function strlen;
 use function strpos;
 
 /**
- * `IpRanges` represents a set of IP ranges that are allowed or forbidden.
+ * `IpRanges` represents a set of IP ranges that are either allowed or forbidden.
  */
 final class IpRanges
 {
