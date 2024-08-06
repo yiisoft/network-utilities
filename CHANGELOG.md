@@ -2,6 +2,7 @@
 
 ## 1.0.2 under development
 
+- New #63: Add `IpRanges` that represents a set of IP ranges that are either allowed or forbidden (@vjik)
 - Bug #59: Fix error while converting IP address to bits representation in PHP 8.0+ (@vjik)
 
 ## 1.0.1 January 27, 2022
