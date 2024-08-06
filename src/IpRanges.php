@@ -59,7 +59,7 @@ final class IpRanges
      *
      * When the array is empty or the option is not set, all IP addresses are allowed.
      *
-     * Otherwise, the rules are checked sequentially until the first match is found. An IP address is forbidden,
+     * Otherwise, the rules are checked sequentially until the first match is found. An IP address is forbidden
      * when it has not matched any of the rules.
      *
      * Example:
