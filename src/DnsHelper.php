@@ -71,7 +71,7 @@ final class DnsHelper
     {
         if (strpos($hostnameOrEmail, '@') !== false) {
             /**
-             * @psalm-suppress PossiblyUndefinedArrayOffset In this cse `explode()` always returns array with 2 elements.
+             * @psalm-suppress PossiblyUndefinedArrayOffset In this case `explode()` always returns an array with 2 elements.
              */
             [, $hostnameOrEmail] = explode('@', $hostnameOrEmail, 2);
         }
