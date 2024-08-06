@@ -1,5 +1,9 @@
 # Yii Network Utilities Change Log
 
+## 1.1.1 under development
+
+- no changes in this release.
+
 ## 1.1.0 August 06, 2024
 
 - New #63: Add `IpRanges` that represents a set of IP ranges that are either allowed or forbidden (@vjik)
