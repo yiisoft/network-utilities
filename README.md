@@ -6,9 +6,9 @@
     <br>
 </p>
 
-[![Latest Stable Version](https://poser.pugx.org/yiisoft/network-utilities/v/stable.png)](https://packagist.org/packages/yiisoft/network-utilities)
-[![Total Downloads](https://poser.pugx.org/yiisoft/network-utilities/downloads.png)](https://packagist.org/packages/yiisoft/network-utilities)
-[![Build Status](https://github.com/yiisoft/network-utilities/workflows/build/badge.svg)](https://github.com/yiisoft/network-utilities/actions)
+[![Latest Stable Version](https://poser.pugx.org/yiisoft/network-utilities/v)](https://packagist.org/packages/yiisoft/network-utilities)
+[![Total Downloads](https://poser.pugx.org/yiisoft/network-utilities/downloads)](https://packagist.org/packages/yiisoft/network-utilities)
+[![Build status](https://github.com/yiisoft/network-utilities/actions/workflows/build.yml/badge.svg)](https://github.com/yiisoft/network-utilities/actions/workflows/build.yml)
 [![Code coverage](https://codecov.io/gh/yiisoft/network-utilities/graph/badge.svg?token=LSO6D4QK3O)](https://codecov.io/gh/yiisoft/network-utilities)
 [![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fyiisoft%2Fnetwork-utilities%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/yiisoft/network-utilities/master)
 [![static analysis](https://github.com/yiisoft/network-utilities/workflows/static%20analysis/badge.svg)](https://github.com/yiisoft/network-utilities/actions?query=workflow%3A%22static+analysis%22)
