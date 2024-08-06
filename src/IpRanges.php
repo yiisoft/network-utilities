@@ -95,7 +95,7 @@ final class IpRanges
     }
 
     /**
-     * Get the IPv4 or IPv6 ranges that are allowed or forbidden.
+     * Get the IPv4 or IPv6 ranges that are either allowed or forbidden.
      *
      * @return string[] The IPv4 or IPv6 ranges that are allowed or forbidden.
      */
