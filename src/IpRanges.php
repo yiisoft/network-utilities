@@ -51,7 +51,7 @@ final class IpRanges
     private array $networks;
 
     /**
-     * @param string[] $ranges The IPv4 or IPv6 ranges that are allowed or forbidden.
+     * @param string[] $ranges The IPv4 or IPv6 ranges that are either allowed or forbidden.
      *
      * The following preparation tasks are performed:
      *  - recursively substitute aliases (described in {@see $networks}) with their values;
