@@ -52,7 +52,7 @@ final class IpHelper
      * @param string $ip The valid IPv4 or IPv6 address.
      * @param bool $validate Enable perform IP address validation. False is best practice if the data comes from a trusted source.
      *
-     * @return int {@see IPV4} or {@see IPV6}.
+     * @return int Value of either {@see IPV4} or {@see IPV6} constant.
      */
     public static function getIpVersion(string $ip, bool $validate = true): int
     {
@@ -173,7 +173,7 @@ final class IpHelper
         $result = '';
         for ($i = 0, $iMax = strlen($ipBinary); $i < $iMax; $i += 4) {
             $data = substr($ipBinary, $i, 4);
-            if (!is_string($data)) {
+            if (empty($data)) {
                 throw new RuntimeException('An error occurred while converting IP address to bits representation.');
             }
             /** @psalm-suppress MixedArgument */
