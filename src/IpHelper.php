@@ -52,7 +52,7 @@ final class IpHelper
      * @param string $ip The valid IPv4 or IPv6 address.
      * @param bool $validate Enable perform IP address validation. False is best practice if the data comes from a trusted source.
      *
-     * @return int Value of {@see IPV4} or {@see IPV6} constants.
+     * @return int Value of either {@see IPV4} or {@see IPV6} constant.
      */
     public static function getIpVersion(string $ip, bool $validate = true): int
     {
