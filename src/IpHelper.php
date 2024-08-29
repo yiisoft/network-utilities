@@ -45,7 +45,14 @@ final class IpHelper
      * The length of IPv4 address in bits.
      */
     public const IPV4_ADDRESS_LENGTH = 32;
-    public const IP_PATTERN = '(?<ipWithCidr>(?<ip>(?:' . self::IPV4_PATTERN . ')|(?:' . self::IPV6_PATTERN . '))(?:\/(?<cidr>-?\d+))?)';
+    /**
+     * IP address pattern (for both IPv4 and IPv6 versions). This pattern is PHP and Javascript compatible.
+     * Allows to define your own IP regexp.
+     */
+    public const IP_PATTERN = '((' . self::IPV4_PATTERN . ')|(?:' . self::IPV6_PATTERN . '))(\/(-?\d+))?';
+    /**
+     * IP address regexp (for both IPv4 and IPv6 versions). This regexp is PHP and JavaScript compatible.
+     */
     public const IP_REGEXP = '/^' . self::IP_PATTERN . '$/';
 
     /**

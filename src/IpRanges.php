@@ -25,7 +25,6 @@ final class IpRanges
     public const DOCUMENTATION = 'documentation';
     public const SYSTEM = 'system';
 
-    public const NEGATED_IP_REGEXP = '/^(?<not>' . self::NEGATION_CHARACTER . ')?' . IpHelper::IP_PATTERN . '$/';
     private const NEGATION_CHARACTER = '!';
 
     /**
