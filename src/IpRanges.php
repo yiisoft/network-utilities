@@ -24,8 +24,10 @@ final class IpRanges
     public const LOCALHOST = 'localhost';
     public const DOCUMENTATION = 'documentation';
     public const SYSTEM = 'system';
-
-    private const NEGATION_CHARACTER = '!';
+    /**
+     * Negation character used to negate ranges
+     */
+    public const NEGATION_CHARACTER = '!';
 
     /**
      * Default network aliases.
