@@ -25,6 +25,9 @@ final class IpRanges
     public const DOCUMENTATION = 'documentation';
     public const SYSTEM = 'system';
 
+    public const NEGATED_IP_REGEXP = '/^(?<not>' . self::NEGATION_CHARACTER . ')?' . IpHelper::IP_PATTERN . '$/';
+    private const NEGATION_CHARACTER = '!';
+
     /**
      * Default network aliases.
      * @see https://datatracker.ietf.org/doc/html/rfc5735#section-4
@@ -152,7 +155,8 @@ final class IpRanges
                 $replacements = $this->prepareRanges($this->networks[$range]);
                 foreach ($replacements as &$replacement) {
                     [$isReplacementNegated, $replacement] = $this->parseNegatedRange($replacement);
-                    $result[] = ($isRangeNegated && !$isReplacementNegated ? '!' : '') . $replacement;
+                    $result[] = ($isRangeNegated && !$isReplacementNegated ? self::NEGATION_CHARACTER : '')
+                        . $replacement;
                 }
             } else {
                 $result[] = $string;
@@ -173,7 +177,7 @@ final class IpRanges
      */
     private function parseNegatedRange(string $string): array
     {
-        $isNegated = strpos($string, '!') === 0;
-        return [$isNegated, $isNegated ? substr($string, strlen('!')) : $string];
+        $isNegated = strpos($string, self::NEGATION_CHARACTER) === 0;
+        return [$isNegated, $isNegated ? substr($string, strlen(self::NEGATION_CHARACTER)) : $string];
     }
 }

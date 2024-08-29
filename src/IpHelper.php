@@ -12,7 +12,7 @@ use function is_string;
 use function strlen;
 
 /**
- * DnsHelper contains static methods to work with IPs.
+ * `IpHelper` contains static methods to work with IPs.
  */
 final class IpHelper
 {
@@ -21,7 +21,7 @@ final class IpHelper
 
     /**
      * IPv4 address pattern. This pattern is PHP and JavaScript compatible.
-     * Allows to define your own IP regexp eg. `'/^'.IpHelper::IPV4_PATTERN.'/(\d+)$/'`.
+     * Allows to define your own IP regexp e.g. `'/^'.IpHelper::IPV4_PATTERN.'/(\d+)$/'`.
      */
     public const IPV4_PATTERN = '((2(5[0-5]|[0-4]\d)|1\d{2}|[1-9]?\d)\.){3}(2(5[0-5]|[0-4]\d)|1\d{2}|[1-9]?\d)';
     /**
@@ -30,7 +30,7 @@ final class IpHelper
     public const IPV4_REGEXP = '/^' . self::IPV4_PATTERN . '$/';
     /**
      * IPv6 address pattern. This pattern is PHP and Javascript compatible.
-     * Allows to define your own IP regexp eg. `'/^'.IpHelper::IPV6_PATTERN.'/(\d+)$/'`.
+     * Allows to define your own IP regexp e.g. `'/^'.IpHelper::IPV6_PATTERN.'/(\d+)$/'`.
      */
     public const IPV6_PATTERN = '(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:' . self::IPV4_PATTERN . ')';
     /**
@@ -45,6 +45,8 @@ final class IpHelper
      * The length of IPv4 address in bits.
      */
     public const IPV4_ADDRESS_LENGTH = 32;
+    public const IP_PATTERN = '(?<ipWithCidr>(?<ip>(?:' . self::IPV4_PATTERN . ')|(?:' . self::IPV6_PATTERN . '))(?:\/(?<cidr>-?\d+))?)';
+    public const IP_REGEXP = '/^' . self::IP_PATTERN . '$/';
 
     /**
      * Gets the IP version.
