@@ -2,7 +2,9 @@
 
 ## 1.1.1 under development
 
-- New #65: Add `IpHelper::IP_REGEXP` constant for checking IP of both IPv4 and IPv6 versions (@arogachev)
+- New #65: Add `IP_PATTERN` and `IP_REGEXP` constants  to `IpHelper` for checking IP of both IPv4 and IPv6 versions             
+  (@arogachev)
+- New #65 Add `isIpv4()`, `isIpv6()`, `isIp()` methods to `IpHelper` (@arogachev)
 
 ## 1.1.0 August 06, 2024
 

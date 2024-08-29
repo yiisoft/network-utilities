@@ -49,11 +49,26 @@ final class IpHelper
      * IP address pattern (for both IPv4 and IPv6 versions). This pattern is PHP and Javascript compatible.
      * Allows to define your own IP regexp.
      */
-    public const IP_PATTERN = '((' . self::IPV4_PATTERN . ')|(?:' . self::IPV6_PATTERN . '))(\/(-?\d+))?';
+    public const IP_PATTERN = '((' . self::IPV4_PATTERN . ')|(' . self::IPV6_PATTERN . '))';
     /**
      * IP address regexp (for both IPv4 and IPv6 versions). This regexp is PHP and JavaScript compatible.
      */
     public const IP_REGEXP = '/^' . self::IP_PATTERN . '$/';
+
+    public static function isIpv4(string $value): bool
+    {
+        return preg_match(self::IPV4_REGEXP, $value) !== 0;
+    }
+
+    public static function isIpv6(string $value): bool
+    {
+        return preg_match(self::IPV6_REGEXP, $value) !== 0;
+    }
+
+    public static function isIp(string $value): bool
+    {
+        return preg_match(self::IP_REGEXP, $value) !== 0;
+    }
 
     /**
      * Gets the IP version.
