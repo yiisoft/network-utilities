@@ -2,7 +2,7 @@
 
 ## 1.1.1 under development
 
-- no changes in this release.
+- New #65: Add `IpHelper::IP_REGEXP` constant for checking IP of both IPv4 and IPv6 versions (@arogachev)
 
 ## 1.1.0 August 06, 2024
 
