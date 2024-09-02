@@ -62,7 +62,7 @@ final class IpHelper
 
     public static function isIpv6(string $value): bool
     {
-        return preg_match(self::IPV6_REGEXP, $value) !== 0;
+        return preg_match(self::IPV6_REGEXP, $value) === 1;
     }
 
     public static function isIp(string $value): bool
