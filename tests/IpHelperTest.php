@@ -10,6 +10,60 @@ use Yiisoft\NetworkUtilities\IpHelper;
 
 final class IpHelperTest extends TestCase
 {
+    public function dataIsIpv4(): array
+    {
+        return [
+            'valid' => ['192.168.10.11', true],
+            'invalid, small length' => ['1.1.1', false],
+            'invalid, letters' => ['not.an.ip', false],
+            'invalid, IPv6' => ['2008:fa::1', false],
+        ];
+    }
+
+    /**
+     * @dataProvider dataIsIpv4
+     */
+    public function testIsIpv4(string $ip, bool $expected): void
+    {
+        $this->assertSame($expected, IpHelper::isIpv4($ip));
+    }
+
+    public function dataIsIpV6(): array
+    {
+        return [
+            'valid' => ['2008:fa::1', true],
+            'invalid' => ['2008:fz::0', false],
+            'invalid, subnet' => ['2008:fa::0:1/64', false],
+            'invalid, IPv4' => ['192.168.10.11', false],
+        ];
+    }
+
+    /**
+     * @dataProvider dataIsIpV6
+     */
+    public function testIsIpv6(string $ip, bool $expected): void
+    {
+        $this->assertSame($expected, IpHelper::isIpv6($ip));
+    }
+
+    public function dataIsIp(): array
+    {
+        return [
+            'valid, IPv4' => ['192.168.10.11', true],
+            'valid, IPv6' => ['2008:fa::1', true],
+            'invalid, IPv4' => ['1.1.1', false],
+            'invalidm IPv6' => ['2008:fz::0', false],
+        ];
+    }
+
+    /**
+     * @dataProvider dataIsIp
+     */
+    public function testIsIp(string $ip, bool $expected): void
+    {
+        $this->assertSame($expected, IpHelper::isIp($ip));
+    }
+
     /**
      * @dataProvider getIpVersionProvider
      */

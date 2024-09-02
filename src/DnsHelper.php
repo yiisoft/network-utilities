@@ -7,7 +7,7 @@ namespace Yiisoft\NetworkUtilities;
 use RuntimeException;
 
 /**
- * DnsHelper contains static methods to work with DNS.
+ * `DnsHelper` contains static methods to work with DNS.
  */
 final class DnsHelper
 {

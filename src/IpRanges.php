@@ -24,6 +24,10 @@ final class IpRanges
     public const LOCALHOST = 'localhost';
     public const DOCUMENTATION = 'documentation';
     public const SYSTEM = 'system';
+    /**
+     * Negation character used to negate ranges
+     */
+    public const NEGATION_CHARACTER = '!';
 
     /**
      * Default network aliases.
@@ -152,7 +156,8 @@ final class IpRanges
                 $replacements = $this->prepareRanges($this->networks[$range]);
                 foreach ($replacements as &$replacement) {
                     [$isReplacementNegated, $replacement] = $this->parseNegatedRange($replacement);
-                    $result[] = ($isRangeNegated && !$isReplacementNegated ? '!' : '') . $replacement;
+                    $result[] = ($isRangeNegated && !$isReplacementNegated ? self::NEGATION_CHARACTER : '')
+                        . $replacement;
                 }
             } else {
                 $result[] = $string;
@@ -173,7 +178,7 @@ final class IpRanges
      */
     private function parseNegatedRange(string $string): array
     {
-        $isNegated = strpos($string, '!') === 0;
-        return [$isNegated, $isNegated ? substr($string, strlen('!')) : $string];
+        $isNegated = strpos($string, self::NEGATION_CHARACTER) === 0;
+        return [$isNegated, $isNegated ? substr($string, strlen(self::NEGATION_CHARACTER)) : $string];
     }
 }
