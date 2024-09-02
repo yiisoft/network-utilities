@@ -67,7 +67,7 @@ final class IpHelper
 
     public static function isIp(string $value): bool
     {
-        return preg_match(self::IP_REGEXP, $value) !== 0;
+        return preg_match(self::IP_REGEXP, $value) === 1;
     }
 
     /**
