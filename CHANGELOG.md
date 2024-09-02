@@ -1,6 +1,6 @@
 # Yii Network Utilities Change Log
 
-## 1.1.1 under development
+## 1.2.0 September 02, 2024
 
 - New #65: Add `IP_PATTERN` and `IP_REGEXP` constants  to `IpHelper` for checking IP of both IPv4 and IPv6 versions             
   (@arogachev)
