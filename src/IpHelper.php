@@ -172,6 +172,10 @@ final class IpHelper
         /** @psalm-var array{hex:string} $hex */
         $hex = unpack('H*hex', $ipRaw);
 
+        /**
+         * @psalm-suppress PossiblyNullArgument We use correct regular expression, so `preg_replace()` will always
+         * return a string.
+         */
         return substr(preg_replace('/([a-f0-9]{4})/i', '$1:', $hex['hex']), 0, -1);
     }
 
@@ -200,7 +204,9 @@ final class IpHelper
             if (empty($data)) {
                 throw new RuntimeException('An error occurred while converting IP address to bits representation.');
             }
-            /** @psalm-suppress MixedArgument */
+            /**
+             * @psalm-suppress MixedArgument, PossiblyInvalidArrayAccess
+             */
             $result .= str_pad(decbin(unpack('N', $data)[1]), 32, '0', STR_PAD_LEFT);
         }
         return $result;
