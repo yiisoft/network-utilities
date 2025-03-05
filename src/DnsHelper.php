@@ -28,6 +28,10 @@ final class DnsHelper
         });
 
         $hostname = rtrim($hostname, '.') . '.';
+        /**
+         * @var array $result We catch errors by `set_error_handler()` and throw exceptions if something goes wrong.
+         * So `dns_get_record()` will always return an array.
+         */
         $result = dns_get_record($hostname, DNS_MX);
 
         restore_error_handler();
@@ -51,6 +55,10 @@ final class DnsHelper
             );
         });
 
+        /**
+         * @var array $result We catch errors by `set_error_handler()` and throw exceptions if something goes wrong.
+         * So `dns_get_record()` will always return an array.
+         */
         $result = dns_get_record($hostname, DNS_A);
 
         restore_error_handler();
