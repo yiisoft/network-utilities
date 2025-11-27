@@ -24,7 +24,7 @@ The package contains various network utilities useful for:
 
 ## Requirements
 
-- PHP 7.4 or higher.
+- PHP 7.4 - 8.5.
 
 ## Installation
 
