@@ -13,7 +13,7 @@ use Yiisoft\NetworkUtilities\DnsHelper;
  */
 final class DnsHelperTest extends TestCase
 {
-    private const NOT_EXISTS_DOMAIN = 'non-exist-for-everrrrrr.domain';
+    private const NOT_EXISTS_DOMAIN = 'non-exist-for-everrrrrr.gov';
     private const NOT_EXISTS_DOMAIN_EMAIL = 'any@' . self::NOT_EXISTS_DOMAIN;
 
     public function testMx(): void
