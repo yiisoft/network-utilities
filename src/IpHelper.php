@@ -202,7 +202,7 @@ final class IpHelper
         for ($i = 0, $iMax = strlen($ipBinary); $i < $iMax; $i += 4) {
             $data = substr($ipBinary, $i, 4);
             /**
-             * psalm-suppress RiskyTruthyFalsyComparison This is required for PHP 7.4 only.
+             * @psalm-suppress RiskyTruthyFalsyComparison This is required for PHP 7.4 only.
              */
             if (empty($data)) {
                 throw new RuntimeException('An error occurred while converting IP address to bits representation.');
