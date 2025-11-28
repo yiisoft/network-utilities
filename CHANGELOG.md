@@ -1,6 +1,6 @@
 # Yii Network Utilities Change Log
 
-## 1.2.1 under development
+## 1.2.1 November 28, 2025
 
 - Chg #68, #69: Change PHP constraint in `composer.json` to `7.4.* || 8.0 - 8.5` (@vjik)
 
