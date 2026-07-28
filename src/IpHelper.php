@@ -149,7 +149,7 @@ final class IpHelper
         $binNet = self::ip2bin($net);
         $masked = substr($binNet, 0, (int) $netMask);
 
-        return ($masked === '' || strpos($binIp, $masked) === 0) && $mask >= $netMask;
+        return ($masked === '' || strpos($binIp, (string) $masked) === 0) && $mask >= $netMask;
     }
 
     /**
