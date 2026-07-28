@@ -6,6 +6,12 @@ namespace Yiisoft\NetworkUtilities;
 
 use RuntimeException;
 
+use function count;
+use function sprintf;
+
+use const DNS_A;
+use const DNS_MX;
+
 /**
  * `DnsHelper` contains static methods to work with DNS.
  */
@@ -23,7 +29,7 @@ final class DnsHelper
         set_error_handler(static function (int $errorNumber, string $errorString) use ($hostname): bool {
             throw new RuntimeException(
                 sprintf('Failed to get DNS record "%s". ', $hostname) . $errorString,
-                $errorNumber
+                $errorNumber,
             );
         });
 
@@ -51,7 +57,7 @@ final class DnsHelper
         set_error_handler(static function (int $errorNumber, string $errorString) use ($hostname): bool {
             throw new RuntimeException(
                 sprintf('Failed to get DNS record "%s". ', $hostname) . $errorString,
-                $errorNumber
+                $errorNumber,
             );
         });
 

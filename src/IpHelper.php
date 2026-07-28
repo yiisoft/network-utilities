@@ -11,6 +11,8 @@ use function assert;
 use function is_string;
 use function strlen;
 
+use const STR_PAD_LEFT;
+
 /**
  * `IpHelper` contains static methods to work with IPs.
  */
