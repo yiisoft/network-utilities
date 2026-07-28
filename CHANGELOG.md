@@ -2,7 +2,7 @@
 
 ## 1.2.2 under development
 
-- no changes in this release.
+- Enh #75: Explicitly import functions and constants in "use" section (@vjik)
 
 ## 1.2.1 November 28, 2025
 

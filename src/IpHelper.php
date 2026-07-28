@@ -11,6 +11,8 @@ use function assert;
 use function is_string;
 use function strlen;
 
+use const STR_PAD_LEFT;
+
 /**
  * `IpHelper` contains static methods to work with IPs.
  */
@@ -145,6 +147,8 @@ final class IpHelper
 
         $binIp = self::ip2bin($ip);
         $binNet = self::ip2bin($net);
+
+        /** @var string $masked */
         $masked = substr($binNet, 0, (int) $netMask);
 
         return ($masked === '' || strpos($binIp, $masked) === 0) && $mask >= $netMask;
