@@ -36,7 +36,7 @@
         "friendsofphp/php-cs-fixer": "^3.95",
         "phpstan/phpstan": "^2.3.6",
         "phpunit/phpunit": "^9.6.22",
-        "rector/rector": "^2.0.10",
+        "rector/rector": "^2.8.5",
         "shipmonk/composer-dependency-analyser": "^1.8",
         "spatie/phpunit-watcher": "^1.23.6",
         "yiisoft/code-style": "^1.1"
