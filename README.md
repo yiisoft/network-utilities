@@ -12,7 +12,6 @@
 [![Code coverage](https://codecov.io/gh/yiisoft/network-utilities/graph/badge.svg?token=LSO6D4QK3O)](https://codecov.io/gh/yiisoft/network-utilities)
 [![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fyiisoft%2Fnetwork-utilities%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/yiisoft/network-utilities/master)
 [![static analysis](https://github.com/yiisoft/network-utilities/workflows/static%20analysis/badge.svg)](https://github.com/yiisoft/network-utilities/actions?query=workflow%3A%22static+analysis%22)
-[![type-coverage](https://shepherd.dev/github/yiisoft/network-utilities/coverage.svg)](https://shepherd.dev/github/yiisoft/network-utilities)
 
 The package contains various network utilities useful for:
 
