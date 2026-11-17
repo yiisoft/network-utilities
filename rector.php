@@ -10,7 +10,7 @@ return RectorConfig::configure()
         __DIR__ . '/src',
         __DIR__ . '/tests',
     ])
-    ->withPhp74Sets()
+    ->withPhpSets()
     ->withSets([
         SetList::YII_CORE,
     ]);
