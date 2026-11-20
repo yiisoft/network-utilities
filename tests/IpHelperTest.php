@@ -209,6 +209,20 @@ final class IpHelperTest extends TestCase
         $this->assertSame($expectedCidr, IpHelper::getCidrBits($ip));
     }
 
+    public function testGetCidrBitsThrowsExceptionOnPcreError(): void
+    {
+        $ip = '192.168.10.11';
+        $backtrackLimit = ini_set('pcre.backtrack_limit', '1');
+
+        try {
+            $this->expectException(InvalidArgumentException::class);
+            $this->expectExceptionMessage('Unrecognized address 192.168.10.11.');
+            IpHelper::getCidrBits($ip);
+        } finally {
+            ini_set('pcre.backtrack_limit', (string) $backtrackLimit);
+        }
+    }
+
     public function ipv4RegexpDataProvider(): array
     {
         return [

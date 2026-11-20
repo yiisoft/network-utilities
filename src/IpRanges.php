@@ -50,7 +50,7 @@ final class IpRanges
     private array $ranges;
 
     /**
-     * @var array<string, list<string>>
+     * @var array<string, string[]>
      */
     private array $networks;
 
@@ -78,7 +78,7 @@ final class IpRanges
      *
      * In this example, access is allowed for all the IPv4 and IPv6 addresses excluding the `192.168.10.0/24`
      * subnet. IPv4 address `192.168.10.128` is also allowed, because it is listed before the restriction.
-     * @param array<string, list<string>> $networks Custom network aliases, that can be used in {@see $ranges}:
+     * @param array<string, string[]> $networks Custom network aliases, that can be used in {@see $ranges}:
      *   - key - alias name;
      *   - value - array of strings. String can be an IP range, IP address or another alias. String can be negated
      *     with `!` character.
@@ -109,7 +109,7 @@ final class IpRanges
     /**
      * Get network aliases, that can be used in {@see $ranges}.
      *
-     * @return array<string, list<string>> Network aliases.
+     * @return array<string, string[]> Network aliases.
      *
      * @see $networks
      */
