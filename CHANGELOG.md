@@ -1,5 +1,9 @@
 # Yii Network Utilities Change Log
 
+## 1.2.3 under development
+
+- no changes in this release.
+
 ## 1.2.2 November 22, 2026
 
 - Chg #79: Replace Psalm with PHPStan (@vjik)
