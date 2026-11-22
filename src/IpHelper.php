@@ -173,12 +173,13 @@ final class IpHelper
             throw new InvalidArgumentException("Unrecognized address $ip.");
         }
 
-        /** @psalm-var array{hex:string} $hex */
+        /** @var array{hex: string} $hex */
         $hex = unpack('H*hex', $ipRaw);
 
         /**
-         * @psalm-suppress PossiblyNullArgument We use correct regular expression, so `preg_replace()` will always
-         * return a string.
+         * We use a correct regular expression, so `preg_replace()` will always return a string.
+         *
+         * @phpstan-ignore argument.type
          */
         return substr(preg_replace('/([a-f0-9]{4})/i', '$1:', $hex['hex']), 0, -1);
     }
@@ -205,14 +206,11 @@ final class IpHelper
         $result = '';
         for ($i = 0, $iMax = strlen($ipBinary); $i < $iMax; $i += 4) {
             $data = substr($ipBinary, $i, 4);
-            /**
-             * @psalm-suppress RiskyTruthyFalsyComparison This is required for PHP 7.4 only.
-             */
             if (empty($data)) {
                 throw new RuntimeException('An error occurred while converting IP address to bits representation.');
             }
             /**
-             * @psalm-suppress MixedArgument, PossiblyInvalidArrayAccess
+             * @phpstan-ignore offsetAccess.nonOffsetAccessible, argument.type
              */
             $result .= str_pad(decbin(unpack('N', $data)[1]), 32, '0', STR_PAD_LEFT);
         }
@@ -228,7 +226,7 @@ final class IpHelper
      */
     public static function getCidrBits(string $ip): int
     {
-        if (preg_match('/^(?<ip>.{2,}?)(?:\/(?<bits>-?\d+))?$/', $ip, $matches) === 0) {
+        if (preg_match('/^(?<ip>.{2,}?)(?:\/(?<bits>-?\d+))?$/', $ip, $matches) !== 1) {
             throw new InvalidArgumentException("Unrecognized address $ip.", 1);
         }
         $ipVersion = self::getIpVersion($matches['ip']);

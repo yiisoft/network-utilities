@@ -35,8 +35,8 @@ final class DnsHelper
 
         $hostname = rtrim($hostname, '.') . '.';
         /**
-         * @var array $result We catch errors by `set_error_handler()` and throw exceptions if something goes wrong.
-         * So `dns_get_record()` will always return an array.
+         * @var list<array<string, mixed>> $result We catch errors by `set_error_handler()` and throw exceptions
+         * if something goes wrong. So `dns_get_record()` will always return an array.
          */
         $result = dns_get_record($hostname, DNS_MX);
 
@@ -62,8 +62,8 @@ final class DnsHelper
         });
 
         /**
-         * @var array $result We catch errors by `set_error_handler()` and throw exceptions if something goes wrong.
-         * So `dns_get_record()` will always return an array.
+         * @var list<array<string, mixed>> $result We catch errors by `set_error_handler()` and throw exceptions
+         * if something goes wrong. So `dns_get_record()` will always return an array.
          */
         $result = dns_get_record($hostname, DNS_A);
 
@@ -84,9 +84,6 @@ final class DnsHelper
     public static function acceptsEmails(string $hostnameOrEmail): bool
     {
         if (strpos($hostnameOrEmail, '@') !== false) {
-            /**
-             * @psalm-suppress PossiblyUndefinedArrayOffset In this case `explode()` always returns an array with 2 elements.
-             */
             [, $hostnameOrEmail] = explode('@', $hostnameOrEmail, 2);
         }
         return self::existsMx($hostnameOrEmail) || self::existsA($hostnameOrEmail);

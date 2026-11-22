@@ -50,7 +50,7 @@ final class IpRanges
     private array $ranges;
 
     /**
-     * @psalm-var array<string, list<string>>
+     * @var array<string, string[]>
      */
     private array $networks;
 
@@ -78,13 +78,11 @@ final class IpRanges
      *
      * In this example, access is allowed for all the IPv4 and IPv6 addresses excluding the `192.168.10.0/24`
      * subnet. IPv4 address `192.168.10.128` is also allowed, because it is listed before the restriction.
-     * @param array $networks Custom network aliases, that can be used in {@see $ranges}:
+     * @param array<string, string[]> $networks Custom network aliases, that can be used in {@see $ranges}:
      *   - key - alias name;
      *   - value - array of strings. String can be an IP range, IP address or another alias. String can be negated
      *     with `!` character.
      * The default aliases are defined in {@see self::DEFAULT_NETWORKS} and will be merged with custom ones.
-     *
-     * @psalm-param array<string, list<string>> $networks
      */
     public function __construct(array $ranges = [], array $networks = [])
     {
@@ -111,7 +109,7 @@ final class IpRanges
     /**
      * Get network aliases, that can be used in {@see $ranges}.
      *
-     * @return array Network aliases.
+     * @return array<string, string[]> Network aliases.
      *
      * @see $networks
      */
@@ -170,11 +168,9 @@ final class IpRanges
     /**
      * Parses IP address/range for the negation with `!`.
      *
-     * @return array The result array consists of 2 elements:
+     * @return array{0: bool, 1: string} The result array consists of 2 elements:
      *   - `boolean` - whether the string is negated;
      *   - `string` - the string without negation (when the negation were present).
-     *
-     * @psalm-return array{0: bool, 1: string}
      */
     private function parseNegatedRange(string $string): array
     {
